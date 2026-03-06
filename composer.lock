@@ -4189,16 +4189,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v6.4.25",
+            "version": "v6.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "6bc974c0035b643aa497c58d46d9e25185e4b272"
+                "reference": "5bb346d1b4b2a616e5c3d99b3ee4d5810735c535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/6bc974c0035b643aa497c58d46d9e25185e4b272",
-                "reference": "6bc974c0035b643aa497c58d46d9e25185e4b272",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5bb346d1b4b2a616e5c3d99b3ee4d5810735c535",
+                "reference": "5bb346d1b4b2a616e5c3d99b3ee4d5810735c535",
                 "shasum": ""
             },
             "require": {
@@ -4246,7 +4246,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v6.4.25"
+                "source": "https://github.com/symfony/http-foundation/tree/v6.4.34"
             },
             "funding": [
                 {
@@ -4266,7 +4266,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-20T06:48:20+00:00"
+            "time": "2026-02-21T15:48:41+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -4472,16 +4472,16 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v6.4.24",
+            "version": "v6.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "664d5e844a2de5e11c8255d0aef6bc15a9660ac7"
+                "reference": "2b32fbbe10b36a8379efab6e702ad8b917151839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/664d5e844a2de5e11c8255d0aef6bc15a9660ac7",
-                "reference": "664d5e844a2de5e11c8255d0aef6bc15a9660ac7",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/2b32fbbe10b36a8379efab6e702ad8b917151839",
+                "reference": "2b32fbbe10b36a8379efab6e702ad8b917151839",
                 "shasum": ""
             },
             "require": {
@@ -4537,7 +4537,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v6.4.24"
+                "source": "https://github.com/symfony/mime/tree/v6.4.34"
             },
             "funding": [
                 {
@@ -4557,7 +4557,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-15T12:02:45+00:00"
+            "time": "2026-02-02T17:01:23+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -8677,5 +8677,5 @@
         "php": "^8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
