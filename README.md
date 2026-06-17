@@ -1,30 +1,29 @@
 # Pesantren CMS & ERP
-
-Integrated platform for managing Pesantren operations (ERP) and public presence (CMS). Built with Laravel 10.
+> Platform terintegrasi untuk manajemen operasional Pesantren (ERP) dan publikasi (CMS). Dibangun dengan Laravel 10.
 
 ## Core Features
 
 ### CMS (Public)
-- **Landing Page:** Profile, vision-mission, and activity gallery.
-- **Online Admission (PSB):** Student self-registration portal.
-- **News/Blog:** News and announcement management.
+- **Landing Page:** Profil, visi-misi, dan galeri kegiatan.
+- **Penerimaan Santri Baru (PSB Online):** Portal pendaftaran mandiri.
+- **Berita/Blog:** Manajemen pengumuman dan berita pesantren.
 
 ### ERP (Internal)
-- **Academic:** Class/Dormitory management, scheduling, and digital report cards (e-Rapor).
-- **Finance:** SPP (Monthly fees) tracking, registration fees, and General Cash Book (Debit/Credit).
-- **Health (Poskestren):** Medical records and internal pharmacy stock.
-- **Discipline (E-Izin):** Point-based violation system (Takzir) and digital exit permits.
-- **HR & Assets:** Staff database, attendance, payroll, and inventory tracking.
+- **Akademik:** Manajemen kelas/asrama, penjadwalan, dan e-Rapor.
+- **Keuangan:** Pembayaran SPP, biaya pendaftaran, dan Buku Kas Umum (Debit/Kredit).
+- **Kesehatan (Poskestren):** Rekam medis dan stok apotek internal.
+- **Kedisiplinan (E-Izin):** Sistem poin pelanggaran (Takzir) dan izin keluar digital.
+- **SDM & Aset:** database staf, absensi, penggajian, dan inventaris.
 
 ### API
-- **JWT Auth:** Mobile-ready endpoints for students and parents.
-- **Integration:** WhatsApp Gateway ready for billing notifications.
+- **JWT Auth:** Endpoint siap digunakan untuk aplikasi mobile santri/orang tua.
+- **Integrasi:** Siap diintegrasikan dengan WhatsApp Gateway untuk notifikasi tagihan.
 
 ## Tech Stack
 - **Backend:** Laravel 10 (PHP 8.1+)
 - **Database:** MySQL / MariaDB
 - **Auth:** Session (Web) & JWT (API)
-- **Reporting:** DomPDF for invoice/report generation
+- **Reporting:** DomPDF untuk invoice dan laporan.
 
 ## Setup
 
@@ -44,7 +43,7 @@ Integrated platform for managing Pesantren operations (ERP) and public presence 
    ```
 
 3. **Database**
-   Configure `.env` (DB_DATABASE, DB_USERNAME, DB_PASSWORD), then:
+   Konfigurasi `.env` (DB_DATABASE, DB_USERNAME, DB_PASSWORD), lalu:
    ```bash
    php artisan migrate --seed
    php artisan storage:link
@@ -61,7 +60,11 @@ Integrated platform for managing Pesantren operations (ERP) and public presence 
 - **Student:** `santri@ponpes.com` / `password`
 
 ## Documentation
-Technical details and roadmap are available in [docs/prd.md](docs/prd.md).
+Detail teknis tersedia di [docs/prd.md](docs/prd.md).
+
+## Contributors
+- **Jefry Kurniawan** - [jefryKurniawan](https://github.com/jefryKurniawan)
+- **Muhammad Iqbal** - [dibaliqaja](https://github.com/dibaliqaja)
 
 ## License
 MIT
