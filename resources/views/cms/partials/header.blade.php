@@ -2,54 +2,54 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <ul class="top-bar-list list-unstyled mb-0">
-                        <li>
-                            <i class="fas fa-map-marker-alt me-2"></i>
+                    <ul class="top-bar-list list-unstyled mb-0 d-flex flex-wrap">
+                        <li class="me-4 mb-2 mb-md-0">
+                            <x-heroicon-o-map-pin class="me-2 h-4 w-4"/>
                             Desa Pesantren, Kec. Kab. Kabupaten, Provinsi
                         </li>
-                        <li class="ms-3">
-                            <i class="fas fa-phone me-2"></i>
+                        <li class="me-4 mb-2 mb-md-0">
+                            <x-heroicon-o-phone class="me-2 h-4 w-4"/>
                             +62 812-3456-7890
                         </li>
-                        <li class="ms-3">
-                            <i class="fas fa-envelope me-2"></i>
+                        <li class="me-4 mb-2 mb-md-0">
+                            <x-heroicon-o-envelope class="me-2 h-4 w-4"/>
                             info@pesantren.example.com
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <ul class="top-bar-social list-unstyled mb-0">
-                        <li>
-                            <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="me-3"><i class="fab fa-youtube"></i></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('cms.psb') }}" class="btn btn-sm btn-outline-primary me-0">
-                                Pendaftaran Online
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="d-flex align-items-center">
+                        <ul class="top-bar-social list-unstyled mb-0 d-flex">
+                            <li class="me-3">
+                                <a href="#" class="social-link" title="Facebook"><x-heroicon-o-share class="h-4 w-4"/></a>
+                            </li>
+                            <li class="me-3">
+                                <a href="#" class="social-link" title="Twitter"><x-heroicon-o-share class="h-4 w-4"/></a>
+                            </li>
+                            <li class="me-3">
+                                <a href="#" class="social-link" title="Instagram"><x-heroicon-o-share class="h-4 w-4"/></a>
+                            </li>
+                            <li class="me-3">
+                                <a href="#" class="social-link" title="YouTube"><x-heroicon-o-share class="h-4 w-4"/></a>
+                            </li>
+                        </ul>
+                        <a href="{{ route('cms.psb') }}" class="btn btn-sm btn-outline-primary ms-3 ms-md-0">
+                            Pendaftaran Online
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ route('cms.home') }}">
                 <div class="brand-logo">
-                    <img src="{{ asset('assets/img/ponpes-logo.png') }}" alt="Pesantren Logo" height="40">
+                    <img src="https://via.placeholder.com/200x80?text=Logo" alt="Pesantren Logo" height="40">
                 </div>
                 <div class="brand-text">
                     <h1 class="mb-0">Pesantren Nama</h1>
@@ -68,7 +68,7 @@
                         <a class="nav-link {{ Request::is('cms/about*') ? 'active' : '' }}" href="{{ route('cms.about') }}">Tentang Kami</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Request::is('cms/news*') ? 'active' : '' }}" href="#" id="navbarNewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ Request::is('cms/news*') ? 'active' : '' }}" href="#" id="navbarNewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                             Berita & Kegiatan
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarNewsDropdown">
@@ -89,17 +89,17 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('cms/psb*') ? 'active' : '' }}" href="{{ route('cms.psb') }}">Pendaftaran Santri Baru</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cms.contact') }}">Kontak</a>
-                    </li>
-                    <li class="nav-item">
-                        <form class="d-none d-md-block ms-3" action="{{ route('cms.search') }}" method="GET">
+                    <!-- Search form will be implemented later -->
+                    <!--
+                    <li class="nav-item d-none">
+                        <form class="d-md-block ms-3" action="{{ route('cms.news.index') }}" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" placeholder="Cari..." name="q" aria-label="Search">
+                                <input type="text" class="form-control form-control-sm" placeholder="Cari berita..." name="q" aria-label="Search">
                                 <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
                             </div>
                         </form>
                     </li>
+                    -->
                 </ul>
             </div>
         </div>

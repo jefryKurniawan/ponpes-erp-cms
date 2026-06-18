@@ -22,15 +22,21 @@
             <!-- Main Content -->
             <div class="col-lg-8">
                 @if($post->thumbnail)
-                <div class="news-image mb-4">
+                <div class="news-image mb-4 hover-lift">
                     <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded shadow-sm">
                 </div>
                 @endif
 
                 <div class="news-meta mb-4">
-                    <span class="news-date"><i class="fas fa-calendar me-1"></i> {{ $post->tanggal_publishiran ?->format('d F Y') }}</span>
+                    <span class="news-date">
+                        <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
+                        {{ $post->published_at ?->format('d F Y') }}
+                    </span>
                     @if($post->category)
-                    <span class="news-category ms-3"><i class="fas fa-tag me-1"></i> {{ $post->category->nama }}</span>
+                    <span class="news-category ms-3">
+                        <x-heroicon-o-tag class="me-1 h-4 w-4"/>
+                        {{ $post->category->nama }}
+                    </span>
                     @endif
                 </div>
 
@@ -56,12 +62,12 @@
                     <h3 class="sidebar-title">Berita Terkait</h3>
                     <div class="related-items">
                         @foreach($relatedPosts as $related)
-                        <div class="related-item mb-3 p-3 bg-light rounded">
+                        <div class="related-item mb-3 p-3 bg-light rounded hover-lift">
                             <h4 class="related-title h6">
                                 <a href="{{ route('cms.news.show', $related->slug) }}">{{ $related->judul }}</a>
                             </h4>
                             <small class="text-muted">
-                                <i class="fas fa-calendar me-1"></i>
+                                <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
                                 {{ $related->tanggal_publishiran ?->format('d M Y') }}
                             </small>
                         </div>

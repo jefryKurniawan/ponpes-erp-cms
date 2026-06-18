@@ -8,6 +8,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('cms.home') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('cms.gallery') }}">Galeri Foto</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Galeri Foto</li>
             </ol>
         </nav>
@@ -22,7 +23,7 @@
             <div class="col-12 mb-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari galeri..." id="gallerySearch">
-                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><x-heroicon-o-magnifying-glass class="me-2 h-4 w-4"/></button>
                 </div>
             </div>
         </div>
@@ -30,13 +31,13 @@
         <div class="row g-4">
             @foreach($galleryImages as $gallery)
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="gallery-item">
+                <div class="gallery-item hover-lift">
                     <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="img-fluid rounded gallery-img">
                     <div class="gallery-overlay">
                         <h3>{{ $gallery->title }}</h3>
                         <p class="gallery-description">{{ $gallery->description }}</p>
                         <a href="{{ asset($gallery->image_path) }}" target="_blank" class="btn btn-primary btn-sm">
-                            <i class="fas fa-expand"></i> Lihat Fullsize
+                            <x-heroicon-o-arrows-expand class="ms-2 h-4 w-4"/> Lihat Fullsize
                         </a>
                     </div>
                 </div>

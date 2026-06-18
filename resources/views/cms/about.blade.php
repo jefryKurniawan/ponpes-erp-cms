@@ -4,7 +4,7 @@
 <!-- Page Header -->
 <section class="page-header pt-5">
     <div class="container">
-        <h1 class="page-title display-5">Tentang Kami</h1>
+        <h1 class="page-title display-5">Tentang Kami</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('cms.home') }}">Beranda</a></li>
@@ -52,9 +52,9 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <!-- Facility items would come from settings or database -->
                     <div class="col">
-                        <div class="facility-card h-100 text-center p-4 bg-light rounded">
+                        <div class="facility-card h-100 text-center p-4 bg-light rounded hover-lift">
                             <div class="facility-icon mb-3">
-                                <i class="fas fa-book fs-1 text-primary"></i>
+                                <x-heroicon-o-collection class="fs-1 text-primary"/>
                             </div>
                             <h5 class="facility-title">Perpustakaan Lengkap</h5>
                             <p class="fasilitas-text">
@@ -63,9 +63,9 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="facility-card h-100 text-center p-4 bg-light rounded">
+                        <div class="facility-card h-100 text-center p-4 bg-light rounded hover-lift">
                             <div class="facility-icon mb-3">
-                                <i class="fas fa-mosque fs-1 text-primary"></i>
+                                <x-heroicon-o-building class="fs-1 text-primary"/>
                             </div>
                             <h5 class="facility-title">Masjid dan Musala</h5>
                             <p class="fasilitas-text">
@@ -74,9 +74,9 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="facility-card h-100 text-center p-4 bg-light rounded">
+                        <div class="facility-card h-100 text-center p-4 bg-light rounded hover-lift">
                             <div class="facility-icon mb-3">
-                                <i class="fas fa-bed fs-1 text-primary"></i>
+                                <x-heroicon-o-bed class="fs-1 text-primary"/>
                             </div>
                             <h5 class="facility-title">Asrama Modern</h5>
                             <p class="fasilitas-text">

@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             // Other tables
             InMail::class,
             OutMail::class,
+            PsbApplicationSeeder::class,
         ]);
     }
 }

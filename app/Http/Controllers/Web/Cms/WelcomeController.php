@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Web\Cms;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Setting;
-use App\Models\Post;
-use App\Models\Gallery;
+use Illuminate\Support\Facades\Schema;
+use App\Models\PsbApplication;
 
 class WelcomeController extends Controller
 {
@@ -16,22 +15,29 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        // Get settings for the pesantren
-        $settings = Setting::where('type', 'pesantren')->first();
+        // Default empty collections to avoid errors when tables are missing.
+        $recentPosts = collect();
+        $galleryImages = collect();
 
-        // Get recent posts/news
-        $recentPosts = Post::where('status', 'published')
-            ->orderBy('published_at', 'desc')
-            ->limit(3)
-            ->get();
+        // Safely fetch recent posts if the table exists.
+        if (Schema::hasTable('posts')) {
+            $recentPosts = DB::table('posts')
+                ->where('status', 'published')
+                ->orderBy('published_at', 'desc')
+                ->limit(3)
+                ->get();
+        }
 
-        // Get gallery images
-        $galleryImages = Gallery::where('is_active', true)
-            ->orderBy('created_at', 'desc')
-            ->limit(6)
-            ->get();
+        // Safely fetch gallery images if the table exists.
+        if (Schema::hasTable('galleries')) {
+            $galleryImages = DB::table('galleries')
+                ->where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->limit(6)
+                ->get();
+        }
 
-        return view('cms.home', compact('settings', 'recentPosts', 'galleryImages'));
+        return view('cms.home', compact('recentPosts', 'galleryImages'));
     }
 
     /**
@@ -39,11 +45,15 @@ class WelcomeController extends Controller
      */
     public function about()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $history = Setting::where('type', 'history')->first();
-        $visionMission = Setting::where('type', 'vision_mission')->first();
+        $history = null;
+        $visionMission = null;
 
-        return view('cms.about', compact('settings', 'history', 'visionMission'));
+        if (Schema::hasTable('settings')) {
+            $history = DB::table('settings')->where('type', 'history')->first();
+            $visionMission = DB::table('settings')->where('type', 'vision_mission')->first();
+        }
+
+        return view('cms.about', compact('history', 'visionMission'));
     }
 
     /**
@@ -51,12 +61,14 @@ class WelcomeController extends Controller
      */
     public function newsIndex()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $posts = Post::where('status', 'published')
-            ->orderBy('published_at', 'desc')
-            ->paginate(6);
-
-        return view('cms.news.index', compact('settings', $posts));
+        $posts = collect();
+        if (Schema::hasTable('posts')) {
+            $posts = DB::table('posts')
+                ->where('status', 'published')
+                ->orderBy('published_at', 'desc')
+                ->paginate(6);
+        }
+        return view('cms.news.index', compact('posts'));
     }
 
     /**
@@ -64,18 +76,28 @@ class WelcomeController extends Controller
      */
     public function newsShow($slug)
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $post = Post::where('slug', $slug)
-            ->where('status', 'published')
-            ->firstOrFail();
+        $settings = null;
+        $post = null;
+        $relatedPosts = collect();
 
-        // Get related posts
-        $relatedPosts = Post::where('status', 'published')
-            ->where('id', '!=', $post->id)
-            ->where('category_id', $post->category_id)
-            ->limit(3)
-            ->get();
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+        if (Schema::hasTable('posts')) {
+            $post = DB::table('posts')
+                ->where('slug', $slug)
+                ->where('status', 'published')
+                ->first();
 
+            if ($post) {
+                $relatedPosts = DB::table('posts')
+                    ->where('status', 'published')
+                    ->where('id', '<>', $post->id)
+                    ->where('category_id', $post->category_id)
+                    ->limit(3)
+                    ->get();
+            }
+        }
         return view('cms.news.show', compact('settings', 'post', 'relatedPosts'));
     }
 
@@ -84,9 +106,12 @@ class WelcomeController extends Controller
      */
     public function psb()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $psbInfo = Setting::where('type', 'psb_info')->first();
-
+        $settings = null;
+        $psbInfo = null;
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+            $psbInfo = DB::table('settings')->where('type', 'psb_info')->first();
+        }
         return view('cms.psb.index', compact('settings', 'psbInfo'));
     }
 
@@ -95,9 +120,12 @@ class WelcomeController extends Controller
      */
     public function psbForm()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $psbForm = Setting::where('type', 'psb_form')->first();
-
+        $settings = null;
+        $psbForm = null;
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+            $psbForm = DB::table('settings')->where('type', 'psb_form')->first();
+        }
         return view('cms.psb.form', compact('settings', 'psbForm'));
     }
 
@@ -106,7 +134,6 @@ class WelcomeController extends Controller
      */
     public function psbSubmit(Request $request)
     {
-        // Validation
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:100',
@@ -121,9 +148,20 @@ class WelcomeController extends Controller
             'no_telepon_wali' => 'required|string|max:20',
         ]);
 
-        // TODO: Save to database or send email
-        // For now, just redirect with success message
-
+        // Save the PSB application to the database
+        \App\Models\PsbApplication::create($request->only([
+            'nama_lengkap',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'jenis_kelamin',
+            'alamat',
+            'no_telepon',
+            'email',
+            'asal_sekolah',
+            'nama_wali',
+            'pekerjaan_wali',
+            'no_telepon_wali',
+        ]));
         return redirect()->route('cms.psb.thankyou')
             ->with('success', 'Pendaftaran Anda telah diterima. Kami akan menghubungi Anda dalam 2x24 jam.');
     }
@@ -133,7 +171,10 @@ class WelcomeController extends Controller
      */
     public function psbThankYou()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
+        $settings = null;
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
         return view('cms.psb.thankyou', compact('settings'));
     }
 
@@ -142,11 +183,17 @@ class WelcomeController extends Controller
      */
     public function gallery()
     {
-        $settings = Setting::where('type', 'pesantren')->first();
-        $galleryImages = Gallery::where('is_active', true)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
+        $settings = null;
+        $galleryImages = collect();
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+        if (Schema::hasTable('galleries')) {
+            $galleryImages = DB::table('galleries')
+                ->where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
         return view('cms.gallery', compact('settings', 'galleryImages'));
     }
 }

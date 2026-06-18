@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\SyahriahController;
 use App\Http\Controllers\Web\CashBookController;
 use App\Http\Controllers\Web\InMailController;
 use App\Http\Controllers\Web\OutMailController;
+use App\Http\Controllers\Web\SantriController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashBookController as ApiCashBookController;
 use App\Http\Controllers\Api\PasswordController;
@@ -129,5 +130,8 @@ Route::group(['prefix' => 'cms', 'as' => 'cms.'], function () {
     Route::post('/psb/daftar', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbSubmit'])->name('psb.submit');
     Route::get('/psb/terima-kasih', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbThankYou'])->name('psb.thankyou');
 
-    // TODO: Add more routes for gallery, contact, etc.
+    // Gallery Route
+    Route::get('/galeri', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery');
+
+    // TODO: Add more routes for contact, etc.
 });

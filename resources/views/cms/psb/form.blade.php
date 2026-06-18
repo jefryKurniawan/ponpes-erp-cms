@@ -8,7 +8,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('cms.home') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('cms.psb) }}">Pendaftaran Santri Baru</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('cms.psb') }}">Pendaftaran Santri Baru</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Formulir Pendaftaran</li>
             </ol>
         </nav>
@@ -22,15 +22,15 @@
             <div class="col-lg-8">
                 @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show">
-                    <i class="fas fa-check-circle me-2"></i>
+                    <x-heroicon-o-check-circle class="me-2 h-4 w-4"/>
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
 
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 hover-lift">
                     <div class="card-body p-5">
-                        <form action="{{ route('cms.psb.submit) }}" method="POST" id="psbForm">
+                        <form action="{{ route('cms.psb.submit') }}" method="POST" id="psbForm">
                             @csrf
 
                             <div class="row mb-4">
@@ -73,7 +73,7 @@
                                         </select>
                                         <label for="jenis_kelamin">Jenis Kelamin</label>
                                         @error('jenis_kelamin')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                         <input type="text" class="form-control" id="nama_wali" name="nama_wali" value="{{ old('nama_wali') }}" required>
                                         <label for="nama_wali">Nama Wali</label>
                                         @error('nama_wali')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
                                         <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" value="{{ old('pekerjaan_wali') }}" required>
                                         <label for="pekerjaan_wali">Pekerjaan Wali</label>
                                         @error('pekerjaan_wali')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                         <input type="tel" class="form-control" id="no_telepon_wali" name="no_telepon_wali" value="{{ old('no_telepon_wali') }}" required>
                                         <label for="no_telepon_wali">Nomor Telepon Wali</label>
                                         @error('no_telepon_wali')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
 
                             <div class="d-grid gap-2 col-6 mx-auto mb-4">
                                 <button type="submit" class="btn btn-primary btn-lg px-5">
-                                    <i class="fas fa-paper-plane me-2"></i> Kirim Pendaftaran
+                                    <x-heroicon-o-paper-plane class="me-2 h-4 w-4"/> Kirim Pendaftaran
                                 </button>
                             </div>
                         </form>
@@ -183,7 +183,7 @@
             const submitButton = form.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
 
-            submitButton.innerHTML = '<i class="fas fa-spinner me-2"></i> Mengirim...';
+            submitButton.innerHTML = '<x-heroicon-o-refresh class="me-2 h-4 w-4"/> Mengirim...';
             submitButton.disabled = true;
 
             // In a real application, you might want to use AJAX here

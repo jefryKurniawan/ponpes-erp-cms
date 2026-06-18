@@ -20,7 +20,6 @@
                             <li><a href="{{ route('cms.about') }}">Tentang Kami</a></li>
                             <li><a href="{{ route('cms.news.index') }}">Berita</a></li>
                             <li><a href="{{ route('cms.psb') }}">Pendaftaran</a></li>
-                            <li><a href="{{ route('cms.contact') }}">Kontak</a></li>
                         </ul>
                     </div>
                 </div>
