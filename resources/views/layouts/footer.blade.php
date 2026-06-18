@@ -1,7 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; {{ date('Y') }} 
-        <div class="bullet"></div> Pondok Pesantren | Made by <a href="https://github.com/dibaliqaja" target="_blank">Muhammad Iqbal</a> | Template by <a href="https://getstisla.com/" target="_blank">Stisla</a>
+        Pesantren CMS &copy; {{ date('Y') }}
     </div>
     <div class="footer-right">
         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
@@ -41,5 +40,4 @@ $('.alert').alert()
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
-
 </html>

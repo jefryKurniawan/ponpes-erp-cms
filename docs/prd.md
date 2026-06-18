@@ -22,6 +22,7 @@ Tujuan utama adalah menciptakan sistem yang modular, aman, dan siap untuk skala 
 ### Frontend & UI/UX
 - **Admin Panel:** Bootstrap/Tailwind dengan komponen modular.
 - **CMS Front-end:** Template Blade yang SEO Friendly untuk profil pesantren.
+- **Mobile Focus:** Desain dan UX dioptimalkan terlebih dahulu untuk pengguna mobile, dengan tampilan responsif yang maksimal pada perangkat mobile.
 - **Mobile Integration:** API v1 (JWT) untuk aplikasi santri dan wali santri.
 
 ---
@@ -76,9 +77,11 @@ Tujuan utama adalah menciptakan sistem yang modular, aman, dan siap untuk skala 
 ---
 
 ## 4. CMS Features (Public Facing)
-- **Landing Page Builder:** Pengaturan profil pondok, visi-misi, dan galeri.
-- **Admission System (PSB Online):** Formulir pendaftaran mandiri untuk calon santri.
-- **Blog/News:** Publikasi kegiatan dan prestasi pesantren.
+- **Landing Page Homepage:** Halaman beranda dengan hero section, statistik counter, tentang pesantren, berita terbaru, dan galeri foto.
+- **About/Profile Profile:** Halaman profil lengkap pesantren dengan sejarah, visi-misi, fasilitas, dan kepemimpinan.
+- **Admission System (PSB Online):** Portal pendaftaran santri baru dengan formulir online, validasi, dan halaman konfirmasi.
+- **Blog/News:** Sistem publikasi berita dan kegiatan dengan halaman daftar, detail, pencarian, filtering, dan paginasi.
+- **Galeri Foto:** Halaman galeri foto dengan fitur filter pencarian, lightbox viewer, dan organisasi berdasarkan kategori.
 
 ---
 

@@ -1,15 +1,5 @@
-<!-- 
-  PROJECT: Pesantren CMS
-  AUTHOR: Muhammad Iqbal (dibaliqaja)
-  GITHUB: https://github.com/dibaliqaja/pesantren-cms
-  TWITTER: https://twitter.com/dibaliqaja
-  FACEBOOK: https://facebook.com/dibaliqaja
-  LINKEDIN: https://linkedin.com/in/dibaliqaja
-  EMAIL: dibaliqaja@gmail.com
--->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +9,7 @@
     <title>@yield('title_page')</title>
 
     <!-- Favicon -->
-    <link rel="favicon icon" href="{{ asset('assets/img/ponpes.ico') }}" type="image/x-icon">  
+    <link rel="favicon icon" href="{{ asset('assets/img/ponpes-icon.png') }}" type="image/x-icon">
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -59,8 +49,8 @@
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             @if (Auth::user()->santri_id == null || Auth::user()->santris->photo == null)
                                 <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-                            @else                                
-                                <img alt="image" src="{{ asset('storage/photo/' . Auth::user()->santris->photo) }}" class="rounded-circle mr-1"                            
+                            @else
+                                <img alt="image" src="{{ asset('storage/photo/' . Auth::user()->santris->photo) }}" class="rounded-circle mr-1"
                                 style="position: relative;width: 30px;height: 30px;overflow: hidden;">
                             @endif
                             <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->santris->name }}</div>
@@ -107,3 +97,36 @@
             <!-- End Main Content -->
 
             @include('layouts.footer')
+        </div>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/modules/popper.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/modules/tooltip.js') }}"></script> --}}
+    <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/stisla.js') }}"></script>
+    <script src="{{ asset('assets/js/digital-sign.js') }}"></script>
+    <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+
+    <!-- JS Libraies -->
+    <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    @yield('script')
+
+    <script>
+    $('.alert').alert()
+    </script>
+
+    <!-- Template JS File -->
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+</body>
+</html>

@@ -1,17 +1,20 @@
 <?php
 
-use \App\Http\Controllers\Web\CashBookController;
-use \App\Http\Controllers\Web\CostController;
-use App\Http\Controllers\Web\LogActivityController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\UserController;
+use App\Http\Controllers\Web\LogActivityController;
+use App\Http\Controllers\Web\CostController;
+use App\Http\Controllers\Web\RegistrationCostController;
+use App\Http\Controllers\Web\SyahriahController;
+use App\Http\Controllers\Web\CashBookController;
 use App\Http\Controllers\Web\InMailController;
 use App\Http\Controllers\Web\OutMailController;
-use \App\Http\Controllers\Web\RegistrationCostController;
-use App\Http\Controllers\Web\SantriController;
-use \App\Http\Controllers\Web\SyahriahController;
-use App\Http\Controllers\Web\UserController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CashBookController as ApiCashBookController;
+use App\Http\Controllers\Api\PasswordController;
+use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SyahriahController as ApiSyahriahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pembayaran-pendaftaran/create', [RegistrationCostController::class, 'create'])->name('registration.create');
     Route::post('pembayaran-pendaftaran', [RegistrationCostController::class, 'store'])->name('registration.store');
     Route::get('pembayaran-pendaftaran/print/{id}', [RegistrationCostController::class, 'print'])->name('registration.print');
-    Route::delete('pembayaran-pendaftaran/{id}', [RegistrationCostController::class, 'destroy'])->name('registration.destroy');    
+    Route::delete('pembayaran-pendaftaran/{id}', [RegistrationCostController::class, 'destroy'])->name('registration.destroy');
 
     // Syahriah (SPP)
     Route::get('syahriah', [SyahriahController::class, 'index'])->name('syahriah.index');
@@ -69,4 +72,62 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('surat-masuk', InMailController::class);
     Route::resource('surat-keluar', OutMailController::class);
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
+    // Autentikasi
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    // Buku Kas
+    Route::get('buku-kas', [ApiCashBookController::class, 'index']);
+
+    // Ubah Password
+    Route::post('password', [PasswordController::class, 'update']);
+
+    // Profil
+    Route::get('profile', [ProfileController::class, 'show']);
+    Route::post('profile', [ProfileController::class, 'update']);
+
+    // Syahriah
+    Route::get('syahriah-history', [ApiSyahriahController::class, 'index_history']);
+    Route::get('syahriah-spp', [ApiSyahriahController::class, 'index_spp']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| CMS Routes (Public-Facing)
+|--------------------------------------------------------------------------
+|
+| These routes are for the public CMS frontend of the Pesantren CMS.
+| They are accessible without authentication.
+|
+*/
+
+Route::group(['prefix' => 'cms', 'as' => 'cms.'], function () {
+    Route::get('/', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'index'])->name('home');
+    Route::get('/tentang-kami', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'about'])->name('about');
+
+    // News/Blog Routes
+    Route::get('/berita', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'newsIndex'])->name('news.index');
+    Route::get('/berita/{slug}', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'newsShow'])->name('news.show');
+
+    // PSB (Pendaftaran Santri Baru) Routes
+    Route::get('/psb', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psb'])->name('psb');
+    Route::get('/psb/daftar', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbForm'])->name('psb.form');
+    Route::post('/psb/daftar', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbSubmit'])->name('psb.submit');
+    Route::get('/psb/terima-kasih', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbThankYou'])->name('psb.thankyou');
+
+    // TODO: Add more routes for gallery, contact, etc.
 });

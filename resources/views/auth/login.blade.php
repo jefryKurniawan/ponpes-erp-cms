@@ -1,4 +1,4 @@
-<!-- 
+<!--
   PROJECT: Pesantren CMS
   AUTHOR: Muhammad Iqbal (dibaliqaja)
   GITHUB: https://github.com/dibaliqaja/pesantren-cms
@@ -9,13 +9,13 @@
 -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; Sistem Manajemen Pondok Pesantren</title>
+  <title>Login - Pesantren CMS</title>
   <!-- Favicon -->
-  <link rel="favicon icon" href="{{ asset('assets/img/ponpes.ico') }}" type="image/x-icon">
+  <link rel="favicon icon" href="{{ asset('assets/img/ponpes-icon.png') }}" type="image/x-icon">
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
@@ -25,6 +25,63 @@
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/ponpes-style.css') }}">
+  <!-- Custom CSS for Login Page -->
+  <style>
+    .login-brand {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-brand img {
+      max-width: 150px;
+      height: auto;
+    }
+    .card-primary {
+      border-top: 3px solid var(--primary);
+      border-radius: 5px;
+    }
+    .card-primary .card-body {
+      padding: 30px;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      border-radius: 30px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #096a4a;
+      border-color: #096a4a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .simple-footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+    .simple-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .simple-footer a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+      .section {
+        min-height: auto;
+      }
+      .container {
+        margin-top: 20px;
+      }
+      .card-body {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -34,7 +91,7 @@
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
-              <img src="{{ asset('assets/img/ponpes.svg') }}" alt="logo" width="120">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f601032960?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDI4NzB8MHwxfHNlYXJjaHwxfHxpc2xhbWl8ZW58MHx8fHwxMTY3ODk4NzY2&ixlib=rb-1.2.1&q=80&w=200" alt="Pesantren Logo" width="150">
             </div>
 
             <div class="card card-primary">
@@ -74,7 +131,7 @@
                       @error('password')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
-                          </span>
+                            </span>
                       @enderror
                     </div>
                   </div>
@@ -89,8 +146,7 @@
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; {{ date('Y') }}
-              <div class="bullet"></div> Made by <a href="https://github.com/dibaliqaja" target="_blank">Muhammad Iqbal</a>
+              Pesantren CMS &copy; {{ date('Y') }}
             </div>
           </div>
         </div>
