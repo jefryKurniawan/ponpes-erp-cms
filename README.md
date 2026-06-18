@@ -59,9 +59,6 @@
 - **Staff:** `pengurus@ponpes.com` / `password`
 - **Student:** `santri@ponpes.com` / `password`
 
-## Documentation
-Detail teknis tersedia di [docs/prd.md](docs/prd.md).
-
 ## Contributors
 - **Jefry Kurniawan** - [jefryKurniawan](https://github.com/jefryKurniawan)
 - **Muhammad Iqbal** - [dibaliqaja](https://github.com/dibaliqaja)
