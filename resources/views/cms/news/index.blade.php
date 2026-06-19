@@ -36,10 +36,10 @@
         <div class="row">
             @foreach($posts as $post)
             <div class="col-md-6 col-lg-4 mb-4">
-                <div class="news-card h-100 shadow-sm border-0 hover-lift">
+                <div class="news-card h-100 shadow-sm border-0 hover-lift decorative-border">
                     @if($post->thumbnail)
                     <div class="news-image">
-                        <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top">
+                        <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top" loading="lazy">
                     </div>
                     @endif
                     <div class="news-content p-4">

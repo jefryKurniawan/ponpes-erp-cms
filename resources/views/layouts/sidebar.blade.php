@@ -30,6 +30,11 @@
                     <i class="far fa-file-alt"></i><span>Biaya Pembayaran</span>
                 </a>
             </li>
+            <li class="{{ (request()->routeIs('keuangan*')) ? 'active' : '' }}">
+                <a href="{{ route('keuangan.index') }}" class="nav-link">
+                    <i class="fas fa-wallet"></i><span>Manajemen Keuangan</span>
+                </a>
+            </li>
             <li class="dropdown {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice"></i> <span>Pembayaran</span></a>
                 <ul class="dropdown-menu">

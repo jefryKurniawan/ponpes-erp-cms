@@ -23,7 +23,7 @@
             <div class="col-12 mb-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari galeri..." id="gallerySearch">
-                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><x-heroicon-o-magnifying-glass class="me-2 h-4 w-4"/></button>
+                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><x-heroicon-o-magnifying-glass class="me-2 h-4 w-4"/> Cari</button>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="row g-4">
             @foreach($galleryImages as $gallery)
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="gallery-item hover-lift">
-                    <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="img-fluid rounded gallery-img">
+                <div class="gallery-item hover-lift decorative-border">
+                    <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="img-fluid rounded gallery-img" loading="lazy">
                     <div class="gallery-overlay">
                         <h3>{{ $gallery->title }}</h3>
                         <p class="gallery-description">{{ $gallery->description }}</p>

@@ -22,8 +22,8 @@
             <!-- Main Content -->
             <div class="col-lg-8">
                 @if($post->thumbnail)
-                <div class="news-image mb-4 hover-lift">
-                    <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded shadow-sm">
+                <div class="news-image mb-4 hover-lift decorative-border">
+                    <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded shadow-sm" loading="lazy">
                 </div>
                 @endif
 

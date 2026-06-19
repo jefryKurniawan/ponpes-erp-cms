@@ -7,27 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @php
+        $settings = [];
+        if (Schema::hasTable('settings')) {
+            $settingsDB = DB::table('settings')->pluck('value', 'type');
+            $settings = $settingsDB->toArray();
+        }
+        $ogTitle = $settings['og_title'] ?? 'Pesantren CMS';
+        $ogDescription = $settings['og_description'] ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+        $ogImage = $settings['og_image'] ? asset('storage/'.$settings['og_image']) : asset('assets/img/og-image.jpg');
+        $twitterTitle = $settings['twitter_title'] ?? $ogTitle;
+        $twitterDescription = $settings['twitter_description'] ?? $ogDescription;
+        $twitterImage = $settings['twitter_image'] ? asset('storage/'.$settings['twitter_image']) : asset('assets/img/twitter-image.jpg');
+    @endphp
+
     <!-- SEO Meta Tags -->
-    <title>@yield('title', 'Pesantren CMS')</title>
-    <meta name="description" content="@yield('description', 'Pesantren CMS - Sistem Manajemen Pesantren Modern')">
-    <meta name="keywords" content="@yield('keywords', 'pesantren, pendidikan islam, sekolah, رجال')">
+    <title>@yield('title', $ogTitle)</title>
+    <meta name="description" content="@yield('description', $ogDescription)">
+    <meta name="keywords" content="@yield('keywords', 'pesantren, pendidikan islam, sekolah, Männer')">
     <meta name="author" content="Pesantren CMS">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="@yield('og_url', request()->url())">
-    <meta property="og:title" content="@yield('og_title', 'Pesantren CMS')">
-    <meta property="og:description" content="@yield('og_description', 'Pesantren CMS - Sistem Manajemen Pesantren Modern')">
-    <meta property="og:image" content="@yield('og_image', asset('assets/img/og-image.jpg'))">
+    <meta property="og:title" content="@yield('og_title', $ogTitle)">
+    <meta property="og:description" content="@yield('og_description', $ogDescription)">
+    <meta property="og:image" content="@yield('og_image', $ogImage)">
     <meta property="og:site_name" content="Pesantren CMS">
     <meta property="og:locale" content="id_ID">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="@yield('twitter_url', request()->url())">
-    <meta property="twitter:title" content="@yield('twitter_title', 'Pesantren CMS')">
-    <meta property="twitter:description" content="@yield('twitter_description', 'Pesantren CMS - Sistem Manajemen Pesantren Modern')">
-    <meta property="twitter:image" content="@yield('twitter_image', asset('assets/img/twitter-image.jpg'))">
+    <meta property="twitter:title" content="@yield('twitter_title', $twitterTitle)">
+    <meta property="twitter:description" content="@yield('twitter_description', $twitterDescription)">
+    <meta property="twitter:image" content="@yield('twitter_image', $twitterImage)">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/ponpes.ico') }}">

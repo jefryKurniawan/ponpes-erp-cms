@@ -73,7 +73,7 @@
                     <h4>Pemasukan Kas</h4>
                 </div>
                 <div class="card-body">
-                    <h5>Rp. {{ number_format($debit, 2, ',', '.') }}</h5>
+                    <h5>Rp. {{ number_format($pemasukan, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                     <h4>Pengeluaran Kas</h4>
                 </div>
                 <div class="card-body">
-                    <h5>Rp. {{ number_format($credit, 2, ',', '.') }}</h5>
+                    <h5>Rp. {{ number_format($pengeluaran, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <h4>Saldo Kas</h4>
                 </div>
                 <div class="card-body">
-                    <h5>Rp. {{ number_format($balance, 2, ',', '.') }}</h5>
+                    <h5>Rp. {{ number_format($saldo, 2, ',', '.') }}</h5>
                 </div>
             </div>
         </div>

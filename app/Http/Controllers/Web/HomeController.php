@@ -38,16 +38,18 @@ class HomeController extends Controller
         $users    = $user->count();
         $in_mail  = $inMail->count();
         $out_mail = $outMail->count();
-        $debit    = $cashBook->sum('debit');
-        $credit   = $cashBook->sum('credit');
-        $balance  = $cashBook->sum(DB::raw('debit - credit'));
-        
+
+        // Enhanced keuangan statistics for dashboard
+        $pemasukan = $cashBook->where('tipe', 'pemasukan')->sum('debit');
+        $pengeluaran = $cashBook->where('tipe', 'pengeluaran')->sum('credit');
+        $saldo = $pemasukan - $pengeluaran;
+
         return view('home', compact(
             'santri',
             'users',
-            'debit',
-            'credit',
-            'balance',
+            'pemasukan',
+            'pengeluaran',
+            'saldo',
             'in_mail',
             'out_mail'
         ));

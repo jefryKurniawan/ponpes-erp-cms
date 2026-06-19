@@ -22,4 +22,9 @@ class CashBook extends Model
     {
         return $this->belongsTo(Syahriah::class, 'syahriah_id');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(KeuanganCategory::class, 'category_id');
+    }
 }
