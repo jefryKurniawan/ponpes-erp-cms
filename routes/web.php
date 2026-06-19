@@ -74,6 +74,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('surat-masuk', InMailController::class);
     Route::resource('surat-keluar', OutMailController::class);
 
+    // Konten CMS (Berita, Galeri, Pengaturan)
+    Route::resource('admin/berita', \App\Http\Controllers\Web\BeritaController::class);
+    Route::resource('admin/galeri', \App\Http\Controllers\Web\GaleriController::class);
+    Route::resource('admin/cms/settings', \App\Http\Controllers\Web\CmsSettingsController::class);
+
     // Keuangan
     Route::resource('keuangan', \App\Http\Controllers\Web\KeuanganController::class)->except(['show']);
     Route::get('keuangan/{cashBook}', [\App\Http\Controllers\Web\KeuanganController::class, 'show'])->name('keuangan.show');
