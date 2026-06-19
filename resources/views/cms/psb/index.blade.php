@@ -8,6 +8,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('cms.home') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('cms.psb') }}">Pendaftaran Santri Baru</a></li>
                 <li class="breadcrumb-item active" aria-current="page">PSB</li>
             </ol>
         </nav>
@@ -26,7 +27,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="psb-image">
+                <div class="psb-image hover-lift decorative-border">
                     <img src="{{ asset('assets/img/psb-info.jpg') }}" alt="Pendaftaran Santri Baru" class="img-fluid rounded shadow">
                 </div>
             </div>
@@ -110,14 +111,14 @@
                 <h2 class="section-title">Informasi Biaya</h2>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="info-box p-4 bg-light rounded">
+                        <div class="info-box p-4 bg-light rounded hover-lift decorative-border">
                             <h5><i class="fas fa-mehrab text-primary me-2"></i> Biaya Pendaftaran</h5>
                             <p class="h4 mb-0">Rp {{ number_format($psbInfo->biaya_pendaftaran ?? 0, 0, ',', '.') }}</p>
                             <small class="text-muted">Sekali pembayaran saat pendaftaran</small>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="info-box p-4 bg-light rounded">
+                        <div class="info-box p-4 bg-light rounded hover-lift decorative-border">
                             <h5><i class="fas fa-university text-primary me-2"></i> SPP Bulanan</h5>
                             <p class="h4 mb-0">Rp {{ number_format($psbInfo->biaya_spp ?? 0, 0, ',', '.') }}</p>
                             <small class="text-muted">Dibayar setiap bulan</small>

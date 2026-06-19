@@ -81,7 +81,7 @@
                     Dengan pendekatan pendidikan yang menggabungkan buku kuning klassik dengan kurikulum modern, pesantren kami telah menghasilkan ribuan lulusan yang menjadi tokoh-tokoh masyarakat, akademisi, dan pemimpin dalam berbagai bidang.
                 </p>
                 <a href="{{ route('cms.about') }}" class="btn btn-outline-primary mt-3">
-                    Baca Selengkapnya <x-heroicon-o-arrow-right class="ms-2 h-4 w-4"/>
+                    Baca Selengkapnya <i class="fas fa-arrow-right ms-2 h-4 w-4"></i>
                 </a>
             </div>
         </div>
@@ -100,10 +100,10 @@
         <div class="row">
             @foreach($recentPosts as $post)
             <div class="col-md-4 mb-4">
-                <div class="news-card h-100 hover-lift">
-                    @if($post->thumbnail)
+                <div class="news-card h-100 shadow-sm border-0 hover-lift decorative-border">
+                    @if($post->featured_image)
                     <div class="news-image">
-                        <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top">
+                        <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top" loading="lazy">
                     </div>
                     @endif
                     <div class="news-content p-3">
@@ -118,11 +118,11 @@
                         </p>
                         <div class="news-meta d-flex justify-content-between align-items-center">
                             <small class="text-muted">
-                                <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
+                                <i class="fas fa-calendar me-1 h-4 w-4"></i>
                                 {{ $post->published_at ?->format('d F Y') }}
                             </small>
                             <a href="{{ route('cms.news.show', $post->slug) }}" class="btn-link">
-                                Baca Selengkapnya <x-heroicon-o-arrow-right class="ms-1 h-4 w-4"/>
+                                Baca Selengkapnya <i class="fas fa-arrow-right ms-1 h-4 w-4"></i>
                             </a>
                         </div>
                     </div>
@@ -150,15 +150,19 @@
         <div class="row g-4">
             @foreach($galleryImages->take(6) as $gallery)
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="gallery-item hover-lift">
-                    <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->judul }}"
-                        class="img-fluid rounded gallery-img">
+                <div class="gallery-item hover-lift decorative-border position-relative">
+                    <div class="placeholder position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->judul }}" class="img-fluid rounded gallery-img" loading="lazy" onload="this.previousElementSibling.style.display='none';">
                     <div class="gallery-overlay">
                         <h3>{{ $gallery->judul }}</h3>
                         <p class="gallery-description">{{ Str::limit($gallery->deskripsi, 50) }}</p>
                         <a href="{{ asset('storage/'.$gallery->image_path) }}" target="_blank"
                             class="btn btn-primary btn-sm">
-                            <x-heroicon-o-arrows-expand class="ms-2 h-4 w-4"/> Lihat Fullsize
+                            <i class="fas fa-arrows-alt ms-2 h-4 w-4"></i> Lihat Fullsize
                         </a>
                     </div>
                 </div>
@@ -167,7 +171,7 @@
         </div>
         <div class="text-center mt-4">
             <a href="{{ route('cms.gallery') }}" class="btn btn-outline-primary">
-                Lihat Semua Galeri <x-heroicon-o-arrow-right class="ms-2 h-4 w-4"/>
+                Lihat Semua Galeri <i class="fas fa-arrow-right ms-2 h-4 w-4"></i>
             </a>
         </div>
         @else
@@ -190,7 +194,7 @@
             </div>
             <div class="col-lg-4 text-lg-end">
                 <a href="{{ route('cms.psb') }}" class="btn btn-primary btn-lg">
-                    Daftar Sekarang <x-heroicon-o-arrow-right class="ms-2 h-4 w-4"/>
+                    Daftar Sekarang <i class="fas fa-arrow-right ms-2 h-4 w-4"></i>
                 </a>
             </div>
         </div>
@@ -202,7 +206,7 @@
 <script>
     // Counter animation
     document.addEventListener('DOMContentLoaded', function() {
-        const counters = document.querySelectorAll('.stat-number');
+        counters = document.querySelectorAll('.stat-number');
 
         counters.forEach(counter => {
             const target = parseInt(counter.getAttribute('data-count').replace(/\D/g, ''));

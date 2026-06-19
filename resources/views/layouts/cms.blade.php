@@ -10,8 +10,16 @@
     @php
         $settings = [];
         if (Schema::hasTable('settings')) {
-            $settingsDB = DB::table('settings')->pluck('value', 'type');
-            $settings = $settingsDB->toArray();
+            $pesantren = DB::table('settings')->where('type', 'pesantren')->first();
+            if ($pesantren) {
+                $settings['og_title'] = $pesantren->nama_pesantren ?? 'Pesantren CMS';
+                $settings['og_description'] = $pesantren->isi ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+                // No image column; leave null to use default
+                $settings['og_image'] = null;
+                $settings['twitter_title'] = $settings['og_title'];
+                $settings['twitter_description'] = $settings['og_description'];
+                $settings['twitter_image'] = null;
+            }
         }
         $ogTitle = $settings['og_title'] ?? 'Pesantren CMS';
         $ogDescription = $settings['og_description'] ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';

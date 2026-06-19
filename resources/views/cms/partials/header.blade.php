@@ -6,15 +6,15 @@
                 <div class="col-md-6">
                     <ul class="top-bar-list list-unstyled mb-0 d-flex flex-wrap">
                         <li class="me-4 mb-2 mb-md-0">
-                            <x-heroicon-o-map-pin class="me-2 h-4 w-4"/>
+                            <i class="fas fa-map-marker-alt me-2 h-4 w-4"></i>
                             Desa Pesantren, Kec. Kab. Kabupaten, Provinsi
                         </li>
                         <li class="me-4 mb-2 mb-md-0">
-                            <x-heroicon-o-phone class="me-2 h-4 w-4"/>
+                            <i class="fas fa-phone me-2 h-4 w-4"></i>
                             +62 812-3456-7890
                         </li>
                         <li class="me-4 mb-2 mb-md-0">
-                            <x-heroicon-o-envelope class="me-2 h-4 w-4"/>
+                            <i class="fas fa-envelope me-2 h-4 w-4"></i>
                             info@pesantren.example.com
                         </li>
                     </ul>
@@ -23,16 +23,16 @@
                     <div class="d-flex align-items-center">
                         <ul class="top-bar-social list-unstyled mb-0 d-flex">
                             <li class="me-3">
-                                <a href="#" class="social-link" title="Facebook"><x-heroicon-o-share class="h-4 w-4"/></a>
+                                <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f h-4 w-4"></i></a>
                             </li>
                             <li class="me-3">
-                                <a href="#" class="social-link" title="Twitter"><x-heroicon-o-share class="h-4 w-4"/></a>
+                                <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter h-4 w-4"></i></a>
                             </li>
                             <li class="me-3">
-                                <a href="#" class="social-link" title="Instagram"><x-heroicon-o-share class="h-4 w-4"/></a>
+                                <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram h-4 w-4"></i></a>
                             </li>
                             <li class="me-3">
-                                <a href="#" class="social-link" title="YouTube"><x-heroicon-o-share class="h-4 w-4"/></a>
+                                <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube h-4 w-4"></i></a>
                             </li>
                         </ul>
                         <a href="{{ route('cms.psb') }}" class="btn btn-sm btn-outline-primary ms-3 ms-md-0">

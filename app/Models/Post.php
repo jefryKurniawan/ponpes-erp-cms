@@ -44,6 +44,38 @@ class Post extends Model
     }
 
     /**
+     * Get the judul attribute (alias for title).
+     */
+    public function getJudulAttribute()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the judul attribute (alias for title).
+     */
+    public function setJudulAttribute($value)
+    {
+        $this->title = $value;
+    }
+
+    /**
+     * Get the isi attribute (alias for content).
+     */
+    public function getIsiAttribute()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set the isi attribute (alias for content).
+     */
+    public function setIsiAttribute($value)
+    {
+        $this->content = $value;
+    }
+
+    /**
      * Scope a query to only include published posts.
      */
     public function scopePublished($query)

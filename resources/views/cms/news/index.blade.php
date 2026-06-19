@@ -22,12 +22,12 @@
             <div class="col-md-6">
                 <form action="{{ route('cms.news.index') }}" method="GET" class="input-group">
                     <input type="text" class="form-control" placeholder="Cari berita..." name="q" value="{{ request()->get('q') }}">
-                    <button class="btn btn-outline-secondary" type="submit"><x-heroicon-o-magnifying-glass class="me-2 h-4 w-4"/></button>
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search me-2"></i></button>
                 </form>
             </div>
             <div class="col-md-6 text-md-end">
                 <a href="{{ route('cms.psb') }}" class="btn btn-outline-primary">
-                    <x-heroicon-o-academic-cap class="me-2 h-4 w-4"/> Pendaftaran Santri Baru
+                    <i class="fas fa-graduation-cap me-2"></i> Pendaftaran Santri Baru
                 </a>
             </div>
         </div>
@@ -37,9 +37,9 @@
             @foreach($posts as $post)
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="news-card h-100 shadow-sm border-0 hover-lift decorative-border">
-                    @if($post->thumbnail)
+                    @if($post->featured_image)
                     <div class="news-image">
-                        <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top" loading="lazy">
+                        <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->judul }}" class="img-fluid rounded-top" loading="lazy">
                     </div>
                     @endif
                     <div class="news-content p-4">
@@ -55,12 +55,12 @@
                         <div class="news-meta d-flex justify-content-between align-items-top">
                             <div>
                                 <small class="text-muted">
-                                    <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
+                                    <i class="fas fa-calendar me-1 h-4 w-4"></i>
                                     {{ $post->published_at ?->format('d F Y') }}
                                 </small>
                             </div>
                             <a href="{{ route('cms.news.show', $post->slug) }}" class="btn-link">
-                                Baca Selengkapnya <x-heroicon-o-arrow-right class="ms-1 h-4 w-4"/>
+                                Baca Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
                             </a>
                         </div>
                     </div>

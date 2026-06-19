@@ -21,20 +21,20 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-lg-8">
-                @if($post->thumbnail)
+                @if($post->featured_image)
                 <div class="news-image mb-4 hover-lift decorative-border">
-                    <img src="{{ asset('storage/'.$post->thumbnail) }}" alt="{{ $post->judul }}" class="img-fluid rounded shadow-sm" loading="lazy">
+                    <img src="{{ asset('storage/'.$post->featured_image) }}" alt="{{ $post->judul }}" class="img-fluid rounded shadow-sm" loading="lazy">
                 </div>
                 @endif
 
                 <div class="news-meta mb-4">
                     <span class="news-date">
-                        <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
+                        <i class="fas fa-calendar me-1 h-4 w-4"></i>
                         {{ $post->published_at ?->format('d F Y') }}
                     </span>
                     @if($post->category)
                     <span class="news-category ms-3">
-                        <x-heroicon-o-tag class="me-1 h-4 w-4"/>
+                        <i class="fas fa-tag me-1 h-4 w-4"></i>
                         {{ $post->category->nama }}
                     </span>
                     @endif
@@ -67,8 +67,8 @@
                                 <a href="{{ route('cms.news.show', $related->slug) }}">{{ $related->judul }}</a>
                             </h4>
                             <small class="text-muted">
-                                <x-heroicon-o-calendar class="me-1 h-4 w-4"/>
-                                {{ $related->tanggal_publishiran ?->format('d M Y') }}
+                                <i class="fas fa-calendar me-1 h-4 w-4"></i>
+                                {{ $related->published_at ?->format('d M Y') }}
                             </small>
                         </div>
                         @endforeach

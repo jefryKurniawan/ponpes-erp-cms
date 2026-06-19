@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Post;
+use App\Models\Gallery;
 use App\Models\PsbApplication;
 
 class WelcomeController extends Controller
@@ -21,8 +23,7 @@ class WelcomeController extends Controller
 
         // Safely fetch recent posts if the table exists.
         if (Schema::hasTable('posts')) {
-            $recentPosts = DB::table('posts')
-                ->where('status', 'published')
+            $recentPosts = Post::where('status', 'published')
                 ->orderBy('published_at', 'desc')
                 ->limit(3)
                 ->get();
@@ -30,8 +31,7 @@ class WelcomeController extends Controller
 
         // Safely fetch gallery images if the table exists.
         if (Schema::hasTable('galleries')) {
-            $galleryImages = DB::table('galleries')
-                ->where('is_active', true)
+            $galleryImages = Gallery::where('is_active', true)
                 ->orderBy('created_at', 'desc')
                 ->limit(6)
                 ->get();
@@ -59,13 +59,22 @@ class WelcomeController extends Controller
     /**
      * Show the news listing page.
      */
-    public function newsIndex()
+    public function newsIndex(Request $request)
     {
         $posts = collect();
         if (Schema::hasTable('posts')) {
-            $posts = DB::table('posts')
-                ->where('status', 'published')
-                ->orderBy('published_at', 'desc')
+            $query = Post::where('status', 'published')
+                ->with('category');
+
+            if ($request->filled('q')) {
+                $search = $request->input('q');
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%");
+                });
+            }
+
+            $posts = $query->orderBy('published_at', 'desc')
                 ->paginate(6);
         }
         return view('cms.news.index', compact('posts'));
@@ -84,14 +93,13 @@ class WelcomeController extends Controller
             $settings = DB::table('settings')->where('type', 'pesantren')->first();
         }
         if (Schema::hasTable('posts')) {
-            $post = DB::table('posts')
-                ->where('slug', $slug)
+            $post = Post::where('slug', $slug)
                 ->where('status', 'published')
+                ->with('category')
                 ->first();
 
             if ($post) {
-                $relatedPosts = DB::table('posts')
-                    ->where('status', 'published')
+                $relatedPosts = Post::where('status', 'published')
                     ->where('id', '<>', $post->id)
                     ->where('category_id', $post->category_id)
                     ->limit(3)
@@ -189,8 +197,7 @@ class WelcomeController extends Controller
             $settings = DB::table('settings')->where('type', 'pesantren')->first();
         }
         if (Schema::hasTable('galleries')) {
-            $galleryImages = DB::table('galleries')
-                ->where('is_active', true)
+            $galleryImages = Gallery::where('is_active', true)
                 ->orderBy('created_at', 'desc')
                 ->get();
         }

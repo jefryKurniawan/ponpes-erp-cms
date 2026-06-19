@@ -23,7 +23,7 @@
             <div class="col-12 mb-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari galeri..." id="gallerySearch">
-                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><x-heroicon-o-magnifying-glass class="me-2 h-4 w-4"/> Cari</button>
+                    <button class="btn btn-outline-secondary" type="button" id="gallerySearchBtn"><i class="fas fa-search me-2"></i> Cari</button>
                 </div>
             </div>
         </div>
@@ -31,13 +31,18 @@
         <div class="row g-4">
             @foreach($galleryImages as $gallery)
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="gallery-item hover-lift decorative-border">
-                    <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="img-fluid rounded gallery-img" loading="lazy">
+                <div class="gallery-item hover-lift decorative-border position-relative">
+                    <div class="placeholder position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="{{ $gallery->title }}" class="img-fluid rounded gallery-img" loading="lazy" onload="this.previousElementSibling.style.display='none';">
                     <div class="gallery-overlay">
                         <h3>{{ $gallery->title }}</h3>
                         <p class="gallery-description">{{ $gallery->description }}</p>
-                        <a href="{{ asset($gallery->image_path) }}" target="_blank" class="btn btn-primary btn-sm">
-                            <x-heroicon-o-arrows-expand class="ms-2 h-4 w-4"/> Lihat Fullsize
+                        <a href="{{ asset('storage/'.$gallery->image_path) }}" target="_blank" class="btn btn-primary btn-sm">
+                            <i class="fas fa-arrows-alt ms-2"></i> Lihat Fullsize
                         </a>
                     </div>
                 </div>

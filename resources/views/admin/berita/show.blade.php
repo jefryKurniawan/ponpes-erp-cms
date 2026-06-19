@@ -23,8 +23,8 @@
 
     <div class="row mb-4">
         <div class="col-md-4">
-            @if($post->thumbnail && file_exists(public_path('storage/'.$post->thumbnail)))
-                <img src="{{ asset('storage/'.$post->thumbnail) }}" class="img-fluid rounded" alt="Thumbnail">
+            @if($post->featured_image && file_exists(public_path('storage/'.$post->featured_image)))
+                <img src="{{ asset('storage/'.$post->featured_image) }}" class="img-fluid rounded" alt="Thumbnail">
             @else
                 <div class="bg-light p-4 text-center rounded">
                     <i class="bi bi-image fs-1 text-muted mb-3"></i>

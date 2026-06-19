@@ -31,7 +31,7 @@
                     Kami akan menghubungi Anda melalui email atau WhatsApp dalam 2x24 jam untuk selanjutnya proses pendaftaran.
                 </p>
 
-                <div class="info-box p-4 bg-light rounded mb-5">
+                <div class="info-box p-4 bg-light rounded hover-lift decorative-border mb-5">
                     <h3>Apa Selanjutnya?</h3>
                     <ol class="list-unstyled">
                         <li><i class="fas fa-envelope me-2"></i> Tim kami akan verifikasi dokumen yang Anda upload</li>
@@ -59,7 +59,7 @@
     <div class="container">
         <div class="row text-center g-4">
             <div class="col-md-4">
-                <div class="info-card p-4 h-100">
+                <div class="info-card p-4 h-100 hover-lift decorative-border">
                     <div class="icon mb-3">
                         <i class="fas fa-clock fs-1 text-primary"></i>
                     </div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="info-card p-4 h-100">
+                <div class="info-card p-4 h-100 hover-lift decorative-border">
                     <div class="icon mb-3">
                         <i class="fas fa-headset fs-1 text-primary"></i>
                     </div>
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="info-card p-4 h-100">
+                <div class="info-card p-4 h-100 hover-lift decorative-border">
                     <div class="icon mb-3">
                         <i class="fas fa-graduation-cap fs-1 text-primary"></i>
                     </div>

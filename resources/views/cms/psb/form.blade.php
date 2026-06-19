@@ -22,13 +22,13 @@
             <div class="col-lg-8">
                 @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show">
-                    <x-heroicon-o-check-circle class="me-2 h-4 w-4"/>
+                    <i class="fas fa-check-circle me-2 h-4 w-4"></i>
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
 
-                <div class="card shadow-sm border-0 hover-lift">
+                <div class="card shadow-sm border-0 hover-lift decorative-border">
                     <div class="card-body p-5">
                         <form action="{{ route('cms.psb.submit') }}" method="POST" id="psbForm">
                             @csrf
@@ -93,7 +93,7 @@
                                         <input type="tel" class="form-control" id="no_telepon" name="no_telepon" value="{{ old('no_telepon') }}" required>
                                         <label for="no_telepon">Nomor Telepon</label>
                                         @error('no_telepon')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                                         <label for="email">Email Aktif</label>
                                         @error('email')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                         <input type="text" class="form-control" id="asal_sekolah" name="asal_sekolah" value="{{ old('asal_sekolah') }}" required>
                                         <label for="asal_sekolah">Asal Sekolah</label>
                                         @error('asal_sekolah')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
 
                             <div class="d-grid gap-2 col-6 mx-auto mb-4">
                                 <button type="submit" class="btn btn-primary btn-lg px-5">
-                                    <x-heroicon-o-paper-plane class="me-2 h-4 w-4"/> Kirim Pendaftaran
+                                    <i class="fas fa-paper-plane me-2 h-4 w-4"></i> Kirim Pendaftaran
                                 </button>
                             </div>
                         </form>
@@ -183,7 +183,7 @@
             const submitButton = form.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
 
-            submitButton.innerHTML = '<x-heroicon-o-refresh class="me-2 h-4 w-4"/> Mengirim...';
+            submitButton.innerHTML = '<i class="fas fa-sync me-2 h-4 w-4"></i> Mengirim...';
             submitButton.disabled = true;
 
             // In a real application, you might want to use AJAX here

@@ -204,7 +204,12 @@ a:hover {
 
 /* Navigation */
 .navbar {
-    background-color: rgba(255, 255, 255, 0.95);
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     transition: background-color 0.3s ease;
@@ -214,15 +219,32 @@ a:hover {
     background-color: white;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .navbar-brand h1 {
     font-size: 1.5rem;
     margin: 0;
+    line-height: 1.2;
 }
 
 .navbar-brand small {
     font-size: 0.875rem;
     font-family: var(--font-body);
     color: #6c757d;
+    display: block;
+}
+
+.brand-logo {
+    flex-shrink: 0;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-link {
@@ -294,11 +316,8 @@ a:hover {
 }
 
 .top-bar .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 .top-bar-list {
@@ -423,15 +442,9 @@ a:hover {
 
 @media (max-width: 479.98px) {
     .top-bar {
-        flex-direction: column;
         text-align: center;
         min-height: auto;
         padding: 0.4rem 0;
-    }
-
-    .top-bar .container {
-        flex-direction: column;
-        align-items: stretch;
     }
 
     .top-bar-list {
@@ -462,6 +475,7 @@ a:hover {
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .top-bar .btn-outline-primary:hover {
@@ -469,6 +483,19 @@ a:hover {
     color: white;
     border-color: var(--primary);
     transform: translateY(-2px);
+}
+
+.top-bar .d-flex.align-items-center {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+    .top-bar .d-flex.align-items-center {
+        justify-content: center;
+        margin-top: 0.25rem;
+    }
 }
 
 @media (max-width: 767.98px) {

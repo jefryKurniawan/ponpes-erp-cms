@@ -37,4 +37,36 @@ class Gallery extends Model
     {
         return $query->where('is_active', true);
     }
+
+    /**
+     * Get the judul attribute (alias for title).
+     */
+    public function getJudulAttribute()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the judul attribute (alias for title).
+     */
+    public function setJudulAttribute($value)
+    {
+        $this->title = $value;
+    }
+
+    /**
+     * Get the deskripsi attribute (alias for description).
+     */
+    public function getDeskripsiAttribute()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the deskripsi attribute (alias for description).
+     */
+    public function setDeskripsiAttribute($value)
+    {
+        $this->description = $value;
+    }
 }
