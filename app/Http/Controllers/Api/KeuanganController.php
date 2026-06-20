@@ -137,10 +137,13 @@ class KeuanganController extends Controller
 
         // Custom validation for jumlah based on tipe
         if ($validated['tipe'] === 'pemasukan' && $validated['jumlah'] < 0) {
-            return response()->json([
-                'error' => 'Validation failed',
-                'messages' => ['jumlah' => ['Jumlah pemasukan tidak boleh negatif kecuali untuk pengembalian']]
-            ], 422);
+            // Allow negative only if note indicates pengembalian (case-insensitive)
+            if (empty($validated['note']) || !stripos($validated['note'], 'pengembalian')) {
+                return response()->json([
+                    'error' => 'Validation failed',
+                    'messages' => ['jumlah' => ['Jumlah pemasukan tidak boleh negatif kecuali untuk pengembalian']]
+                ], 422);
+            }
         }
 
         // Determine whether to store as debit or credit based on tipe

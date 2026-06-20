@@ -202,85 +202,613 @@ a:hover {
     background-color: var(--primary);
 }
 
-/* Navigation */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+/* Enhanced organic decorative element to navbar brand - subtle pulse per PRD */
+.navbar-brand::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 28px;
+    background:
+        linear-gradient(to bottom, var(--primary), var(--secondary)),
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.1) 2px,
+            rgba(255, 255, 255, 0.1) 4px
+        );
+    border-radius: 2px;
+    opacity: 0.8;
+    /* Subtle pulse animation for micro-interaction - ≤200ms per PRD */
+    animation: pulse 0.2s ease-in-out infinite;
+}
+
+/* Additional flowing decorative element - removed per PRD (no long decorative animations) */
+.navbar-brand::after {
+    content: '';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--secondary), var(--primary));
+    border-radius: 2px;
+    opacity: 0.6;
+    /* Removed long float animation per PRD - decorative elements should be static */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        transform: translateY(-50%) translateX(5px);
+    }
+    100% {
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Enhance logo container with subtle effect */
+.brand-logo {
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Brand logo image hover effects */
+.brand-logo img {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-logo:hover img {
+    transform: translateY(-2px) scale(1.03);
+    filter: brightness(1.05) drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+    transition: transform 0.2s ease, filter 0.2s ease; /* GPU-accelerated, ≤200ms per PRD */
+}
+
+/* Enhance brand text with subtle animation */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brand text hover effects */
+.brand-text:hover h1 {
+    color: var(--primary) !important;
+}
+
+/* Organic wavy underline effect to brand text on hover */
+.brand-text::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.4s ease;
+}
+
+.brand-text:hover::after {
+    width: 100%;
+}
+
+/* Organic line decoration for brand - subtle pulse per PRD */
+.organic-line {
+    width: 3px;
+    height: 24px;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    border-radius: 2px;
+    opacity: 0.7;
+    /* Subtle pulse animation for micro-interaction - ≤200ms per PRD */
+    animation: pulse 0.2s ease-in-out infinite;
+    display: block;
+}
+
+/* Navbar brand heading - using Kalam font as per PRD */
+.navbar-brand h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--dark) !important;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Add subtle animation to brand name */
+.navbar-brand h1::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.4s ease;
+}
+
+.navbar-brand:hover h1::after {
+    width: 100%;
+}
+
+/* Navbar brand small text - using Lora font as per PRD */
+.navbar-brand small {
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    color: rgba(33, 37, 41, 0.6); /* Darker for better contrast */
+    display: block;
+    font-weight: 400;
+}
+
+/* Enhanced Navbar links - Organic/Natural Design with smooth interactions */
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+    font-weight: 500;
+    padding: 0.75rem 1rem !important; /* Increased padding for better touch targets (min 48x48pt) */
+    margin: 0 0.25rem; /* Standard margin for compact layout */
+    border-radius: var(--border-radius-lg);
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; /* GPU-accelerated, ≤200ms per PRD */
+    position: relative;
+    overflow: hidden;
+    font-size: 0.95rem;
+    min-height: 48px; /* Minimum touch target size as per UX guidelines */
+    min-width: 48px;  /* Minimum touch target size as per UX guidelines */
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced hover effect - subtle and smooth */
+.nav-link:hover {
+    color: var(--primary) !important;
+    background-color: rgba(14, 148, 103, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-color: rgba(14, 148, 103, 0.15);
+}
+
+/* Active state - clear indication */
+.nav-link.active {
+    color: var(--primary) !important;
+    background-color: rgba(14, 148, 103, 0.12);
+    font-weight: 600;
+}
+
+/* Add simple underline effect for active link */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 1px 1px 0 0;
+    opacity: 0.8;
+}
+
+/* Enhanced hover effect with sliding background - more natural */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background:
+        linear-gradient(90deg, var(--primary), var(--secondary)),
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(255, 255, 255, 0.3) 1px,
+            rgba(255, 255, 255, 0.3) 2px
+        );
+    transition: width 0.5s ease;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* Enhanced focus states for accessibility - more visible */
+.nav-link:focus,
+.dropdown-item:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    background-color: rgba(14, 148, 103, 0.1);
+    box-shadow: 0 0 0 3px rgba(14, 148, 103, 0.25);
+}
+
+/* Dropdown item enhancements - more organic */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+    padding: 0.75rem 1.5rem;
+    margin: 0.25rem 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    min-height: 48px; /* Minimum touch target size */
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid transparent;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(14, 148, 103, 0.12);
+    color: var(--primary) !important;
+    transform: translateX(4px) scale(1.01);
+}
+
+.dropdown-item:hover .dropdown-item-text {
+    transform: translateY(-2px);
+}
+
+.dropdown-item:active {
+    background-color: rgba(14, 148, 103, 0.18);
+}
+
+/* Add subtle decorative elements to dropdown */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 15px;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: rotate(45deg);
+    opacity: 0.8;
+}
+
+.dropdown-menu::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    width: 12px;
+    height: 12px;
+    background: var(--secondary);
+    border-radius: 50%;
+    transform: rotate(-45deg);
+    opacity: 0.8;
+}
+
+/* Enhanced hover effect with organic/natural feel */
+.nav-link:hover {
+    color: var(--primary) !important;
+    background-color: rgba(14, 148, 103, 0.06);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Active state with stronger visual indication */
+.nav-link.active {
+    color: var(--primary) !important;
+    background-color: rgba(14, 148, 103, 0.1);
+    font-weight: 600;
+    position: relative;
+}
+
+/* Add decorative underline effect for active link */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 2px 2px 0 0;
+}
+
+/* Enhanced hover effect with sliding background */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.4s ease;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* Add subtle organic shape to navbar */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Navbar container styling - Enhanced Organic/Natural Design */
 .navbar {
     position: relative !important;
     left: auto !important;
     right: auto !important;
     width: 100% !important;
     height: auto !important;
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-sm);
-    transition: background-color 0.3s ease;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.9) 100%) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(14, 148, 103, 0.15);
+    border-radius: 0 0 25px 25px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 100;
+}
+
+/* Enhanced organic texture overlay - reminiscent of batik/woven cloth */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background:
+        linear-gradient(90deg, transparent, rgba(14, 148, 103, 0.2), transparent),
+        repeating-linear-gradient(
+            45deg,
+            rgba(14, 148, 103, 0.05),
+            rgba(14, 148, 103, 0.05) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background:
+        linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.15), transparent),
+        repeating-linear-gradient(
+            135deg,
+            rgba(139, 69, 19, 0.08),
+            rgba(139, 69, 19, 0.08) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Asymmetric decorative element */
+.navbar {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.navbar::before {
+    left: -0.5rem;
+    right: -0.5rem;
+}
+
+.navbar::after {
+    left: -0.5rem;
+    right: -0.5rem;
 }
 
 .navbar.scrolled {
-    background-color: white;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.85) 100%) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    border-color: rgba(14, 148, 103, 0.2);
 }
 
-.navbar-brand {
+/* Reduce organic texture opacity when scrolled for better readability */
+.navbar.scrolled::before {
+    opacity: 0.4;
+}
+
+.navbar.scrolled::after {
+    opacity: 0.5;
+}
+
+/* Spread navbar items to use full horizontal space */
+.navbar-nav {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Enhanced Navbar toggler - optimized for mobile touch targets */
+.navbar-toggler {
+    border: none;
+    border-radius: 50%;
+    padding: 0.75rem; /* Increased padding for better touch targets */
+    transition: transform 0.2s ease, background-color 0.2s ease; /* GPU-accelerated, ≤200ms per PRD */
+    background-color: rgba(14, 148, 103, 0.08);
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 0.25rem;
 }
 
-.navbar-brand h1 {
-    font-size: 1.5rem;
-    margin: 0;
-    line-height: 1.2;
+/* Ensure good touch target size for mobile (min 48x48px) */
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(14, 148, 103, 0.25);
+    outline: none;
 }
 
-.navbar-brand small {
-    font-size: 0.875rem;
-    font-family: var(--font-body);
-    color: #6c757d;
-    display: block;
+.navbar-toggler:hover {
+    background-color: rgba(14, 148, 103, 0.12);
+    transform: rotate(10deg) scale(1.05);
 }
 
-.brand-logo {
-    flex-shrink: 0;
+.navbar-toggler:active {
+    transform: rotate(0) scale(0.98);
 }
 
-.brand-text {
+/* Enhanced navbar toggler icon - ensure visibility */
+.navbar-toggler-icon {
+    width: 2em;
+    height: 2em;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%230E9467' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    transition: all 0.4s ease;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+/* Navbar dropdown enhancements */
+.dropdown-menu {
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    background-color: var(--light);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(14, 148, 103, 0.1);
+    animation: dropdownSlide 0.4s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
     display: flex;
-    flex-direction: column;
-}
-
-.nav-link {
-    font-weight: 500;
-    padding: 0.5rem 1rem !important;
-    margin: 0 0.25rem;
+    align-items: center;
+    color: var(--dark);
+    padding: 0.75rem 1.5rem;
+    margin: 0.25rem 1rem;
     border-radius: var(--border-radius);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    min-height: 48px; /* Minimum touch target size */
 }
 
-.nav-link:hover {
+.dropdown-item:hover {
+    background-color: rgba(14, 148, 103, 0.08);
     color: var(--primary) !important;
-    background-color: rgba(14, 148, 103, 0.1);
+    transform: translateX(4px);
 }
 
-.nav-link.active {
-    color: var(--primary) !important;
-    background-color: rgba(14, 148, 103, 0.15);
+.dropdown-item:hover .dropdown-item-text {
+    transform: translateY(-2px);
 }
 
-.navbar-toggler {
-    border-color: rgba(0,0,0,0.1);
+.dropdown-item:active {
+    background-color: rgba(14, 148, 103, 0.12);
 }
 
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,0,0,0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+.dropdown-divider {
+    margin: 0.5rem 1rem;
+    border-color: rgba(0,0,0,0.08);
+    opacity: 0.5;
+}
+
+/* Add organic decorative elements to dropdown */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: rotate(45deg);
+}
+
+/* Enhanced focus states for accessibility */
+.nav-link:focus,
+.dropdown-item:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Add subtle animation to navbar on load */
+.navbar {
+    animation: navbarSlideDown 0.5s ease-out;
+}
+
+@keyframes navbarSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0.7;
+    }
 }
 
 /* Top Bar - Organic/Natural Design */
 .top-bar {
     background: linear-gradient(135deg, var(--primary) 0%, #0B7A52 100%);
     color: white;
-    min-height: 38px;
+    min-height: 28px;
     display: flex;
     align-items: center;
-    padding: 0.25rem 0;
+    padding: 0.1rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
@@ -521,6 +1049,917 @@ a:hover {
 .hero-section {
     position: relative;
     overflow: hidden;
+    /* Add ample white space as per PRD */
+    padding: 6rem 0;
+    position: relative;
+}
+
+/* Enhanced hero section with asymmetrical design */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    /* Add subtle text shadow for depth */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+.hero-actions .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced button hover effects */
+.hero-actions .btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.hero-actions .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: var(--gradient-primary);
+}
+
+.hero-actions .btn-outline-light {
+    border-color: rgba(255,255,255,0.5);
+    color: white;
+    background: transparent;
+}
+
+.hero-actions .btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-color: white;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Hero image enhancements */
+.hero-image {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    /* GPU-accelerated transition for smooth performance (<=200ms per PRD) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-image:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 25px rgba(0,0,0,0.15);
+}
+
+/* Hero image container for asymmetrical layout */
+.hero-image-container {
+    position: relative;
+    /* Create asymmetry by shifting the image */
+    margin-top: -2rem;
+}
+
+/* Organic decorative shapes - static texture per PRD */
+.organic-shape {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    opacity: 0.15;
+    border-radius: 50%;
+    position: relative;
+    /* Static texture as per PRD - no animation for decorative overlays */
+}
+
+/* Add secondary organic shape for balance - static texture per PRD */
+.hero-image-container::before {
+    content: '';
+    position: absolute;
+    bottom: -3rem;
+    right: -2rem;
+    width: 120px;
+    height: 120px;
+    background: var(--gradient-secondary);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: -1;
+    /* Static texture as per PRD - no animation for decorative overlays */
+    transform: rotate(15deg);
+}
+
+/* Stats section enhancements */
+.stats-section {
+    background-color: var(--light);
+    padding: 5rem 0;
+    position: relative;
+}
+
+/* Add geometric pattern overlay to stats section */
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230E9467' fill-opacity='0.02'%3E%3Cpath d='M20 10l5 15h-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background-color: var(--light);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(0,0,0,0.03);
+    /* GPU-accelerated transition for smooth performance (<=200ms per PRD) */
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    /* Add ample white space as per PRD */
+}
+
+/* Enhanced stat item hover effects */
+.stat-item:hover {
+    background-color: white;
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+    border-color: rgba(0,0,0,0.08);
+}
+
+/* Add organic lift effect to stats */
+.stat-item:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+/* Enhance stat numbers */
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+}
+
+/* Highlight first stat with accent color */
+.stats-section .stat-item:first-child .stat-number {
+    color: var(--accent);
+}
+
+/* Enhance stat labels */
+.stat-label {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(33, 37, 41, 0.7);
+    display: block;
+}
+
+/* About section enhancements */
+.about-section {
+    background-color: var(--light);
+    padding: 5rem 0;
+    position: relative;
+}
+
+/* Add asymmetrical design to about section */
+.about-section .row {
+    position: relative;
+}
+
+/* Add organic decorative elements to about section */
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: var(--gradient-primary);
+    opacity: 0.05;
+    border-radius: 50%;
+    z-index: -1;
+    transform: rotate(30deg);
+}
+
+.about-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: var(--gradient-secondary);
+    opacity: 0.05;
+    border-radius: 50%;
+    z-index: -1;
+    transform: rotate(-20deg);
+}
+
+.about-image {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    /* GPU-accelerated transition for smooth performance (<=200ms per PRD) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.about-image:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 20px rgba(0,0,0,0.1);
+}
+
+/* Add decorative border to about image */
+.about-image {
+    border: 3px solid var(--secondary);
+}
+
+/* Section title enhancements */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    /* Add organic underline */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+/* Section subtitle enhancements */
+.section-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+}
+
+/* News section enhancements */
+.news-section {
+    padding: 5rem 0;
+    position: relative;
+}
+
+/* Add geometric pattern to news section */
+.news-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B4513' fill-opacity='0.02'%3E%3Cpath d='M0 30L30 0L60 30L30 60Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.news-section .section-title::after {
+    background: var(--gradient-secondary);
+}
+
+.news-card {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    /* GPU-accelerated transition for smooth performance (<=200ms per PRD) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    /* Add ample white space */
+    margin-bottom: 2rem;
+}
+
+/* Enhanced news card hover */
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(0,0,0,0.08);
+}
+
+/* Add decorative border to news cards on hover */
+.news-card:hover {
+    border: 2px solid var(--primary);
+}
+
+/* News image enhancements */
+.news-image {
+    height: 220px;
+    overflow: hidden;
+}
+
+/* News image hover effect */
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-image img {
+    transform: scale(1.05);
+}
+
+/* News content enhancements */
+.news-content {
+    flex-grow: 1;
+    padding: 1.5rem;
+}
+
+/* News title enhancements */
+.news-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.news-title a {
+    color: var(--dark);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.news-title a:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* News excerpt enhancements */
+.news-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+    color: rgba(0,0,0,0.7);
+}
+
+/* News meta enhancements */
+.news-meta {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* News category badge */
+.news-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.3rem;
+    font-weight: 500;
+}
+
+/* News category colors */
+.news-category.bg-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.news-category.bg-secondary {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.news-category.bg-accent {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* News link enhancements */
+.btn-link {
+    color: var(--primary);
+    font-weight: 500;
+    padding: 0;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.btn-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+    transform: translateY(-2px);
+}
+
+/* Add organic underline effect */
+.btn-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.btn-link:hover::after {
+    width: 100%;
+}
+
+/* Gallery section enhancements */
+.gallery-section {
+    padding: 5rem 0;
+    position: relative;
+}
+
+/* Add asymmetrical organic elements to gallery section */
+.gallery-section::before {
+    content: '';
+    position: absolute;
+    top: 10rem;
+    left: -5rem;
+    width: 200px;
+    height: 200px;
+    background: var(--gradient-primary);
+    opacity: 0.08;
+    border-radius: 50%;
+    z-index: -1;
+    /* Static texture as per PRD - no animation for decorative overlays */
+    transform: rotate(15deg);
+}
+
+.gallery-section::after {
+    content: '';
+    position: absolute;
+    bottom: 10rem;
+    right: -5rem;
+    width: 150px;
+    height: 150px;
+    background: var(--gradient-secondary);
+    opacity: 0.08;
+    border-radius: 50%;
+    z-index: -1;
+    /* Static texture as per PRD - no animation for decorative overlays */
+    transform: rotate(-25deg);
+}
+
+/* Gallery item enhancements */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-lg);
+    /* Add decorative border inspired by traditional wood carving */
+    border: 2px solid transparent;
+    /* GPU-accelerated transition for smooth performance (<=200ms per PRD) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover effects for gallery items */
+.gallery-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
+}
+
+/* Gallery image enhancements */
+.gallery-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.04);
+}
+
+/* Gallery overlay enhancements */
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    padding: 20px;
+    text-align: center;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+/* Gallery title enhancements */
+.gallery-overlay h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+/* Gallery description enhancements */
+.gallery-overlay p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+}
+
+/* Gallery button enhancements */
+.gallery-overlay .btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.gallery-overlay .btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+}
+
+.gallery-overlay .btn-primary:hover {
+    background: var(--gradient-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* CTA section enhancements */
+.cta-section {
+    background-color: var(--light);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add organic background elements to CTA section */
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: var(--gradient-primary);
+    opacity: 0.03;
+    z-index: -1;
+    transform: skewY(-2deg);
+}
+
+.cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 30%;
+    background: var(--gradient-secondary);
+    opacity: 0.03;
+    z-index: -1;
+    transform: skewY(2deg);
+}
+
+.cta-title {
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    /* Add organic underline */
+}
+
+.cta-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+.cta-subtitle {
+    color: rgba(0,0,0,0.7);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+/* CTA button enhancements */
+.cta-section .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section .btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cta-section .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Footer enhancements */
+.footer {
+    background-color: var(--dark);
+    color: rgba(255,255,255,0.8);
+    padding: 4rem 0 2rem;
+}
+
+/* Add subtle pattern to footer */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M0 20L20 0L40 20L20 40Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Footer widget enhancements */
+.footer-widget h4 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.footer-widget h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--primary);
+}
+
+/* Footer description enhancements */
+.footer-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* Footer links enhancements */
+.footer-links a {
+    color: rgba(255,255,255,0.7);
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.25rem 0;
+}
+
+.footer-links a:hover {
+    color: white;
+    /* Add subtle lift effect */
+    transform: translateY(-2px);
+    text-decoration: underline;
+}
+
+/* Footer social enhancements */
+.footer-social a {
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-social a:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Footer contact enhancements */
+.footer-contact p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.footer-contact i {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.25rem;
+}
+
+/* Footer bottom enhancements */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Responsive adjustments - enhanced for better mobile experience */
+@media (max-width: 991.98px) {
+    .hero-section {
+        padding: 5rem 0;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.15rem;
+    }
+
+    .about-section,
+    .stats-section,
+    .news-section,
+    .gallery-section,
+    .cta-section {
+        padding: 4rem 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        padding: 4rem 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-actions {
+        text-align: center;
+    }
+
+    .hero-actions .btn {
+        margin-bottom: 1rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .stats-section [class^="col-"] {
+        margin-bottom: 1.5rem;
+    }
+
+    .about-section .row {
+        flex-direction: column-reverse;
+    }
+
+    .about-image {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .cta-section .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .organic-shape,
+    .hero-image-container::before,
+    .gallery-section::before,
+    .gallery-section::after,
+    .cta-section::before,
+    .cta-section::after,
+    .about-section::before,
+    .about-section::after,
+    .stats-section::before,
+    .news-section::before,
+    .footer::before {
+        display: none;
+    }
+}
+
+/* Animation definitions */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .hero-image:hover,
+    .about-image:hover,
+    .news-card:hover,
+    .gallery-item:hover,
+    .stat-item:hover,
+    .organic-shape,
+    .hero-image-container::before,
+    .gallery-section::before,
+    .gallery-section::after,
+    .cta-section::before,
+    .cta-section::after,
+    .about-section::before,
+    .about-section::after,
+    .stats-section::before,
+    .news-section::before,
+    .footer::before {
+        animation: none !important;
+        transform: none !important;
+    }
 }
 
 .hero-bg {
@@ -568,21 +2007,54 @@ a:hover {
 .stat-item {
     text-align: center;
     padding: 1.5rem;
+    background-color: var(--light);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle elevation on hover */
+.stat-item:hover {
+    background-color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: rgba(0,0,0,0.1);
+}
+
+/* Add a subtle accent line to the left on hover for first stat */
+.stats-section .stat-item:first-child:hover::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--accent);
 }
 
 .stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--primary);
     display: block;
     margin-bottom: 0.5rem;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Highlight first stat with accent color */
+.stats-section .stat-item:first-child .stat-number {
+    color: var(--accent);
 }
 
 .stat-label {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: rgba(33, 37, 41, 0.7); /* Slightly lighter than --dark */
 }
 
 /* About Section */
@@ -680,10 +2152,13 @@ a:hover {
 
 .news-title a {
     color: var(--dark);
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .news-title a:hover {
     color: var(--primary);
+    transform: translateY(-2px);
 }
 
 .news-excerpt {
@@ -710,10 +2185,14 @@ a:hover {
     color: var(--primary);
     font-weight: 500;
     padding: 0;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .btn-link:hover {
+    color: var(--primary);
     text-decoration: underline;
+    transform: translateY(-2px);
 }
 
 /* PSB Form */
@@ -1125,8 +2604,321 @@ a, button, .btn, .nav-link, .footer-links a, .footer-social a {
 /* CTA Section */
 .cta-section {
     background-color: var(--light);
+    position: relative;
+    overflow: hidden;
 }
 .cta-title {
     color: var(--dark);
     font-weight: 700;
+}
+
+/* Landing Page Specific Styles */
+
+/* Geometric Pattern Overlay */
+.geometric-pattern-overlay,
+.cta-pattern-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23%230E9467' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-4h-2zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+.hero-section,
+.about-section,
+.stats-section {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hero-section::before,
+.about-section::before,
+.stats-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Hero Slideshow */
+.hero-slideshow {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    border-radius: var(--border-radius-lg);
+}
+
+.hero-slideshow .slides {
+    display: flex;
+    height: 100%;
+}
+
+.hero-slideshow .slide {
+    min-width: 100%;
+    height: 100%;
+    transition: opacity 0.2s ease; /* GPU-accelerated, ≤200ms per PRD */
+    opacity: 0;
+}
+
+.hero-slideshow .slide.active {
+    opacity: 1;
+}
+
+.hero-slideshow .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-slideshow .slider-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.hero-slideshow .nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-slideshow .nav-dot.active,
+.hero-slideshow .nav-dot:hover {
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Stats Section Enhancements */
+.stat-highlight {
+    background: linear-gradient(135deg, rgba(14, 148, 103, 0.1), rgba(139, 69, 19, 0.05));
+    border: 1px solid rgba(14, 148, 103, 0.2);
+    transform: translateY(-10px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark);
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* News Card Enhancements */
+.news-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card .news-image {
+    height: 180px;
+    overflow: hidden;
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.news-card .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-image img {
+    transform: scale(1.05);
+}
+
+.news-card .news-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card .news-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.news-card .news-title a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.news-card .news-title a:hover {
+    color: var(--primary);
+}
+
+.news-card .news-excerpt {
+    flex-grow: 1;
+}
+
+/* Gallery Item Enhancements */
+.gallery-item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-img {
+    flex-grow: 1;
+    object-fit: cover;
+}
+
+.gallery-overlay {
+    padding: 20px;
+}
+
+.gallery-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+/* About Section Decorations */
+.about-decoration .ornamental-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--secondary);
+}
+
+.about-decoration .top-left {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+    border-radius: 20px 0 0 0;
+}
+
+.about-decoration .top-right {
+    top: 0;
+    right: 0;
+    border-width: 2px 2px 0 0;
+    border-radius: 0 20px 0 0;
+}
+
+.about-decoration .bottom-left {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 20px;
+}
+
+.about-decoration .bottom-right {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 20px 0;
+}
+
+/* CTA Section Enhancements */
+.cta-pattern-overlay {
+    opacity: 0.4;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .hero-slideshow {
+        height: 300px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-slideshow {
+        height: 250px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .stat-number {
+        font-size: 1.75rem;
+    }
+
+    .about-image,
+    .about-content {
+        text-align: center;
+    }
+}
+
+/* Decorative Border Enhancement */
+.decorative-border {
+    border: 2px solid var(--secondary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+
+.decorative-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+}
+
+/* Animation Enhancements */
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+}
+
+@keyframes navbarSlideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

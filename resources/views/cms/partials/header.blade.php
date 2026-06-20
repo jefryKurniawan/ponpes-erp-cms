@@ -35,9 +35,6 @@
                                 <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube h-4 w-4"></i></a>
                             </li>
                         </ul>
-                        <a href="{{ route('cms.psb') }}" class="btn btn-sm btn-outline-primary ms-3 ms-md-0">
-                            Pendaftaran Online
-                        </a>
                     </div>
                 </div>
             </div>
@@ -45,15 +42,18 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light organic-navbar">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('cms.home') }}">
-                <div class="brand-logo">
-                    <img src="https://via.placeholder.com/200x80?text=Logo" alt="Pesantren Logo" height="40">
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('cms.home') }}">
+                <div class="brand-logo me-3">
+                    <img src="https://via.placeholder.com/80x80?text=Logo" alt="Pesantren Logo" height="48" width="48">
                 </div>
                 <div class="brand-text">
-                    <h1 class="mb-0">Pesantren Nama</h1>
-                    <small>Pendidikan Islam Berbasis Nilai</small>
+                    <h1 class="mb-0 brand-name">{{ $settings?->nama_pesantren ?? 'Pesantren' }}</h1>
+                    <small class="brand-tagline">Pendidikan Islam Berbasis Nilai</small>
+                    <div class="brand-decoration">
+                        <div class="organic-line"></div>
+                    </div>
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,32 +62,32 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('cms*') ? 'active' : '' }}" href="{{ route('cms.home') }}">Beranda</a>
+                        <a class="nav-link px-3 py-2 {{ Request::is('cms*') ? 'active' : '' }}" href="{{ route('cms.home') }}"><span class="nav-link-text">Beranda</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('cms/about*') ? 'active' : '' }}" href="{{ route('cms.about') }}">Tentang Kami</a>
+                        <a class="nav-link px-3 py-2 {{ Request::is('cms/about*') ? 'active' : '' }}" href="{{ route('cms.about') }}"><span class="nav-link-text">Tentang Kami</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Request::is('cms/news*') ? 'active' : '' }}" href="#" id="navbarNewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                            Berita & Kegiatan
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle px-3 py-2 {{ Request::is('cms/news*') ? 'active' : '' }}" href="#" id="navbarNewsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            <span class="nav-link-text">Berita & Kegiatan</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarNewsDropdown">
+                        <ul class="dropdown-menu dropdown-menu-lg-start" aria-labelledby="navbarNewsDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{ route('cms.news.index') }}">Daftar Berita</a>
+                                <a class="dropdown-item px-3 py-2" href="{{ route('cms.news.index') }}"><span class="dropdown-item-text">Daftar Berita</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('cms.news.index') }}#!agenda">Agenda & Kegiatan</a>
+                                <a class="dropdown-item px-3 py-2" href="{{ route('cms.news.index') }}#!agenda"><span class="dropdown-item-text">Agenda & Kegiatan</span></a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('cms.gallery') }}">Galeri Foto</a>
+                                <a class="dropdown-item px-3 py-2" href="{{ route('cms.gallery') }}"><span class="dropdown-item-text">Galeri Foto</span></a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('cms/psb*') ? 'active' : '' }}" href="{{ route('cms.psb') }}">Pendaftaran Santri Baru</a>
+                        <a class="nav-link px-3 py-2 {{ Request::is('cms/psb*') ? 'active' : '' }}" href="{{ route('cms.psb') }}"><span class="nav-link-text">Pendaftaran Santri Baru</span></a>
                     </li>
                     <!-- Search form will be implemented later -->
                     <!--

@@ -41,15 +41,18 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="role">Role</label>
-                        <select class="form-control select2 @error('role') is-invalid @enderror" name="role" required>
+                        <label for="role_id">Role</label>
+                        <select class="form-control select2 @error('role_id') is-invalid @enderror" name="role_id" required>
                             <option selected disabled>Pilih Role</option>
-                            <option value="Administrator" @if ($user->role == 'Administrator') selected @endif>Administrator</option>
-                            <option value="Pengurus" @if ($user->role == 'Pengurus') selected @endif @if (auth()->user()->role == 'Administrator' && auth()->user() == $user) disabled @endif>Pengurus</option>
-                            <option value="Santri" @if ($user->role == 'Santri') selected @endif @if (auth()->user() == $user) disabled @endif>Santri</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}"
+                                    @if ($user->role_id == $role->id) selected @endif
+                                    @if (auth()->user()->role->name == 'Administrator' && auth()->user()->id == $user->id && $role->name == 'Pengurus') disabled @endif
+                                    @if (auth()->user()->id == $user->id && $role->name == 'Santri') disabled @endif>{{ $role->display_name }}</option>
+                            @endforeach
                         </select>
-            
-                        @error('role')
+
+                        @error('role_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -40,19 +40,19 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="role">Role</label>
-                        <select class="form-control select2 @error('role') is-invalid @enderror" name="role" required>
+                        <label for="role_id">Role</label>
+                        <select class="form-control select2 @error('role_id') is-invalid @enderror" name="role_id" required>
                             <option selected disabled>Pilih Role</option>
-                            <option value="Administrator" {{-- @if(Auth::user()->role=='Pengurus')disabled@endif --}}>Administrator</option>
-                            <option value="Pengurus">Pengurus</option>
-                            <option value="Santri">Santri</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                            @endforeach
                         </select>
-            
-                        @error('role')
+
+                        @error('role_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror            
+                        @enderror
                     </div>
                 </div>
             </div>

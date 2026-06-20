@@ -1,5 +1,36 @@
 @extends('layouts.cms')
 
+@section("title", "Pendaftaran Santri Baru | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@php
+    $description = 'Informasi pendaftaran santri baru di pesantren ' . ($settings?->nama_pesantren ?? 'Pesantren');
+    if($psbInfo && isset($psbInfo->isi)) {
+        $description = Str::limit(strip_tags($psbInfo->isi), 200);
+    }
+@endphp
+@section("description", "{{ $description }}")
+@section('og_type', 'website')
+@section("og_title", "Pendaftaran Santri Baru | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@php
+    $ogDescription = 'Informasi pendaftaran santri baru di pesantren ' . ($settings?->nama_pesantren ?? 'Pesantren');
+    if($psbInfo && isset($psbInfo->isi)) {
+        $ogDescription = Str::limit(strip_tags($psbInfo->isi), 200);
+    }
+@endphp
+@section("og_description", "{{ $ogDescription }}")
+@section('og_image', asset('assets/img/psb-info.jpg'))
+@section('twitter_card', 'summary_large_image')
+@section("twitter_title", "Pendaftaran Santri Baru | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@php
+    $twitterDescription = 'Informasi pendaftaran santri baru di pesantren ' . ($settings?->nama_pesantren ?? 'Pesantren');
+    if($psbInfo && isset($psbInfo->isi)) {
+        $twitterDescription = Str::limit(strip_tags($psbInfo->isi), 200);
+    }
+@endphp
+@section("twitter_description", "{{ $twitterDescription }}")
+@section('twitter_image', asset('assets/img/psb-info.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">

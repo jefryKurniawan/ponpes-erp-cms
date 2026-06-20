@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,6 +26,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Weekly database backup every Sunday at 02:00
+        $schedule->call(function () {
+            // Ensure backup directory exists
+            if (!Storage::disk('local')->exists('backups')) {
+                Storage::disk('local')->makeDirectory('backups');
+            }
+
+            $filename = 'database_' . date('Y-m-d_H-i-s') . '.sql';
+            Artisan::call('db:dump', [
+                '--destination' => storage_path('app/backups/' . $filename)
+            ]);
+        })->weekly()->sundays()->at('02:00');
+
         // $schedule->command('inspire')->hourly();
     }
 

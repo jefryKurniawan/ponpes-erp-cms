@@ -27,4 +27,16 @@ class Santri extends Model
     {
         return $this->hasMany(Syahriah::class);
     }
+
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'santri_kelas')
+                    ->withPivot('tahun_ajaran', 'masuk_kelas', 'keluar_kelas')
+                    ->withTimestamps();
+    }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class);
+    }
 }

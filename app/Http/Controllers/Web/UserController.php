@@ -31,17 +31,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data       = User::with('santris')->latest()->paginate(10);
-        $keyword    = $request->keyword;
-        if ($keyword)
-        $data   = User::with('santris')
-                ->where('email', 'LIKE', "%$keyword%")
-                ->orWhere('role', 'LIKE', "%$keyword%")
-                ->orWhereHas('santris', function ($query) use ($keyword) {
-                    $query->where('name', 'LIKE', "%$keyword%");
-                })
-                ->latest()
-                ->paginate(10);
+        $keyword = $request->keyword;
+        $query = User::with(['santris', 'role']);
+
+        if ($keyword) {
+            $query->where('email', 'like', "%{$keyword}%")
+                  ->orWhereHas('role', function ($q) use ($keyword) {
+                      $q->where('name', 'like', "%{$keyword}%");
+                  })
+                  ->orWhereHas('santris', function ($q) use ($keyword) {
+                      $q->where('name', 'like', "%{$keyword}%");
+                  });
+        }
+
+        $data = $query->latest()->paginate(10);
 
         return view('user.index', compact('data'));
     }
@@ -53,8 +56,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $data = Santri::all();
-        return view('user.create', compact('data'));
+        $santri = Santri::all();
+        $roles = Role::all();
+        return view('user.create', compact('santri', 'roles'));
     }
 
     /**
@@ -84,9 +88,10 @@ class UserController extends Controller
     public function edit($id)
     {
         if (Gate::allows('admin')) {
-            $data = Santri::all();
+            $santri = Santri::all();
+            $roles = Role::all();
             $user = User::findOrFail($id);
-            return view('user.edit', compact('user', 'data'));
+            return view('user.edit', compact('user', 'santri', 'roles'));
         }
         abort(403);
     }

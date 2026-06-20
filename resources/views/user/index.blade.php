@@ -45,12 +45,12 @@
                         <td>{{ $user + $data->firstitem() }}</td>
                         <td><a href="{{ route('santri.show', $result->santris->id) }}">{{ $result->santris->name }}</a></td>
                         <td>{{ $result->email }}</td>
-                        <td>{{ $result->role }}</td>
+                        <td>{{ $result->role->display_name }}</td>
                         <td align="center">
-                            @if (Auth::user()->role == 'Pengurus')
+                            @if (Auth::user()->role && Auth::user()->role->name == 'Pengurus')
                                 <small class="text-warning">No Action</small>
-                            @else                                
-                                <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>                                
+                            @else
+                                <a href="{{ route('pengguna.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
                                 <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSuratModal"><i class="fas fa-trash"></i></a>
                             @endif
                         </td>

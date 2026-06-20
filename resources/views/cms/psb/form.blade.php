@@ -1,5 +1,18 @@
 @extends('layouts.cms')
 
+@section("title", "Formulir Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('description', 'Isi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('og_type', 'website')
+@section("og_title", "Formulir Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('og_description', 'Isi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('og_image', asset('assets/img/og-image.jpg'))
+@section('twitter_card', 'summary_large_image')
+@section("twitter_title", "Formulir Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('twitter_description', 'Isi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('twitter_image', asset('assets/img/twitter-image.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">
@@ -35,8 +48,8 @@
 
                             <div class="row mb-4">
                                 <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" class="form-control form-control-lg" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
                                         <label for="nama_lengkap">Nama Lengkap</label>
                                         @error('nama_lengkap')
                                             <div class="text-danger small">{{ $message }}</div>
@@ -44,8 +57,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" class="form-control form-control-lg" id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
                                         <label for="tempat_lahir">Tempat Lahir</label>
                                         @error('tempat_lahir')
                                             <div class="text-danger small">{{ $message }}</div>
@@ -57,16 +70,16 @@
                             <div class="row mb-4">
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+                                        <input type="date" class="form-control form-control-lg" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                                         <label for="tanggal_lahir">Tanggal Lahir</label>
                                         @error('tanggal_lahir')
-                                            <div class="text-danger small>{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                        <select class="form-select form-select-lg" id="jenis_kelamin" name="jenis_kelamin" required>
                                             <option value="">Pilih Jenis Kelamin</option>
                                             <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                             <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
@@ -80,7 +93,7 @@
                             </div>
 
                             <div class="form-floating mb-4">
-                                <textarea class="form-control" id="alamat" name="alamat" rows="3" value="{{ old('alamat') }}" required></textarea>
+                                <textarea class="form-control form-control-lg" id="alamat" name="alamat" rows="3" value="{{ old('alamat') }}" required></textarea>
                                 <label for="alamat">Alamat Lengkap</label>
                                 @error('alamat')
                                     <div class="text-danger small>{{ $message }}</div>
@@ -90,10 +103,10 @@
                             <div class="row mb-4">
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="tel" class="form-control" id="no_telepon" name="no_telepon" value="{{ old('no_telepon') }}" required>
+                                        <input type="tel" class="form-control form-control-lg" id="no_telepon" name="no_telepon" value="{{ old('no_telepon') }}" required>
                                         <label for="no_telepon">Nomor Telepon</label>
                                         @error('no_telepon')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -102,7 +115,7 @@
                                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                                         <label for="email">Email Aktif</label>
                                         @error('email')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -114,7 +127,7 @@
                                         <input type="text" class="form-control" id="asal_sekolah" name="asal_sekolah" value="{{ old('asal_sekolah') }}" required>
                                         <label for="asal_sekolah">Asal Sekolah</label>
                                         @error('asal_sekolah')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -123,7 +136,7 @@
                                         <input type="text" class="form-control" id="nama_wali" name="nama_wali" value="{{ old('nama_wali') }}" required>
                                         <label for="nama_wali">Nama Wali</label>
                                         @error('nama_wali')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -135,7 +148,7 @@
                                         <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" value="{{ old('pekerjaan_wali') }}" required>
                                         <label for="pekerjaan_wali">Pekerjaan Wali</label>
                                         @error('pekerjaan_wali')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -144,7 +157,7 @@
                                         <input type="tel" class="form-control" id="no_telepon_wali" name="no_telepon_wali" value="{{ old('no_telepon_wali') }}" required>
                                         <label for="no_telepon_wali">Nomor Telepon Wali</label>
                                         @error('no_telepon_wali')
-                                            <div class="text-danger small{{ $message }}</div>
+                                            <div class="text-danger small">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>

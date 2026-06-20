@@ -41,6 +41,8 @@ Auth::routes([
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::resource('santri', SantriController::class);
+    Route::post('santri/{santri}/kelas', [SantriController::class, 'storeKelas'])->name('santri.storeKelas');
+    Route::post('santri/{santri}/nilai', [SantriController::class, 'storeNilai'])->name('santri.storeNilai');
     Route::resource('pengguna', UserController::class);
     Route::get('log-aktivitas', [LogActivityController::class, 'index'])->name('logs.index');
 

@@ -1,5 +1,16 @@
 @extends('layouts.cms')
 
+@section("title", "Tentang Kami | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("description", "{{ $settings?->isi ?? 'Pesantren CMS - Informasi tentang Visi, Misi, dan Sejarah Pesantren' }}")
+@section("og_title", "{{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("og_description", "{{ $settings?->isi ?? 'Pesantren CMS - Informasi tentang Visi, Misi, dan Sejarah Pesantren' }}")
+@section('og_image', asset('assets/img/og-image.jpg'))
+@section("twitter_title", "{{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("twitter_description", "{{ $settings?->isi ?? 'Pesantren CMS - Informasi tentang Visi, Misi, dan Sejarah Pesantren' }}")
+@section('twitter_image', asset('assets/img/twitter-image.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">

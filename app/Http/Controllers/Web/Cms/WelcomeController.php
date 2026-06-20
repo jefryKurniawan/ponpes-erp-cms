@@ -20,6 +20,7 @@ class WelcomeController extends Controller
         // Default empty collections to avoid errors when tables are missing.
         $recentPosts = collect();
         $galleryImages = collect();
+        $settings = null;
 
         // Safely fetch recent posts if the table exists.
         if (Schema::hasTable('posts')) {
@@ -37,7 +38,22 @@ class WelcomeController extends Controller
                 ->get();
         }
 
-        return view('cms.home', compact('recentPosts', 'galleryImages'));
+        // Safely fetch settings if the table exists.
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
+        return view('cms.home', compact('recentPosts', 'galleryImages', 'settings'));
     }
 
     /**
@@ -47,13 +63,25 @@ class WelcomeController extends Controller
     {
         $history = null;
         $visionMission = null;
+        $settings = null;
 
         if (Schema::hasTable('settings')) {
             $history = DB::table('settings')->where('type', 'history')->first();
             $visionMission = DB::table('settings')->where('type', 'vision_mission')->first();
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
         }
 
-        return view('cms.about', compact('history', 'visionMission'));
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
+        return view('cms.about', compact('history', 'visionMission', 'settings'));
     }
 
     /**
@@ -62,6 +90,7 @@ class WelcomeController extends Controller
     public function newsIndex(Request $request)
     {
         $posts = collect();
+        $settings = null;
         if (Schema::hasTable('posts')) {
             $query = Post::where('status', 'published')
                 ->with('category');
@@ -77,7 +106,23 @@ class WelcomeController extends Controller
             $posts = $query->orderBy('published_at', 'desc')
                 ->paginate(6);
         }
-        return view('cms.news.index', compact('posts'));
+
+        // Safely fetch settings if the table exists.
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
+        return view('cms.news.index', compact('posts', 'settings'));
     }
 
     /**
@@ -106,6 +151,17 @@ class WelcomeController extends Controller
                     ->get();
             }
         }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
         return view('cms.news.show', compact('settings', 'post', 'relatedPosts'));
     }
 
@@ -120,6 +176,17 @@ class WelcomeController extends Controller
             $settings = DB::table('settings')->where('type', 'pesantren')->first();
             $psbInfo = DB::table('settings')->where('type', 'psb_info')->first();
         }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
         return view('cms.psb.index', compact('settings', 'psbInfo'));
     }
 
@@ -134,6 +201,17 @@ class WelcomeController extends Controller
             $settings = DB::table('settings')->where('type', 'pesantren')->first();
             $psbForm = DB::table('settings')->where('type', 'psb_form')->first();
         }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
         return view('cms.psb.form', compact('settings', 'psbForm'));
     }
 
@@ -183,6 +261,17 @@ class WelcomeController extends Controller
         if (Schema::hasTable('settings')) {
             $settings = DB::table('settings')->where('type', 'pesantren')->first();
         }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
         return view('cms.psb.thankyou', compact('settings'));
     }
 
@@ -201,6 +290,17 @@ class WelcomeController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
+
+        // Ensure $settings is never null to prevent property access errors
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+
         return view('cms.gallery', compact('settings', 'galleryImages'));
     }
 }

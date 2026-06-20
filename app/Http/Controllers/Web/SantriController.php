@@ -6,16 +6,18 @@ use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SantriRequest;
 use App\Models\Santri;
+use App\Models\Kelas;
+use App\Models\Nilai;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class SantriController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -97,7 +99,11 @@ class SantriController extends Controller
      */
     public function show(Santri $santri)
     {
-        // Any authenticated user can view santri details
+        // Eager load kelas and nilai with related data
+        $santri->load(['kelas' => function($query) {
+            $query->orderByPivot('tahun_ajaran', 'desc');
+        }, 'nilai.mapel']);
+
         return view('santri.show', compact('santri'));
     }
 
@@ -173,5 +179,89 @@ class SantriController extends Controller
 
         return redirect()->route('santri.index')
             ->with('success', 'Santri berhasil dihapus.');
+    }
+
+    /**
+     * Store a new kelas for the santri.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id  Santri UUID
+     * @return \Illuminate\Http\Response
+     */
+    public function storeKelas(Request $request, $id)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        $santri = Santri::findOrFail($id);
+
+        $request->validate([
+            'kelas_id' => 'required|uuid|exists:kelas,id',
+            'tahun_ajaran' => 'required|string',
+            'masuk_kelas' => 'nullable|date',
+            'keluar_kelas' => 'nullable|date|after_or_equal:masuk_kelas',
+        ]);
+
+        // Attach kelas with pivot data
+        $santri->kelas()->attach($request->kelas_id, [
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'masuk_kelas' => $request->masuk_kelas,
+            'keluar_kelas' => $request->keluar_kelas,
+        ]);
+
+        LogActivity::addToLog('Tambah Kelas Santri: '.$santri->name.' - Kelas ID: '.$request->kelas_id);
+
+        return redirect()->back()->with('success', 'Kelas berhasil ditambahkan.');
+    }
+
+    /**
+     * Store a new nilai for the santri.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id  Santri UUID
+     * @return \Illuminate\Http\Response
+     */
+    public function storeNilai(Request $request, $id)
+    {
+        if (!Gate::allows('admin')) {
+            abort(403);
+        }
+
+        $santri = Santri::findOrFail($id);
+
+        $request->validate([
+            'mapel_id' => 'required|uuid|exists:mapel,id',
+            'nilai' => 'required|numeric|between:0,100',
+            'semester' => 'required|in:Ganjil,Genap',
+            'tahun_ajaran' => 'required|string',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        // Check if nilai already exists for this santri, mapel, semester, tahun_ajaran
+        $exists = Nilai::where('santri_id', $santri->id)
+            ->where('mapel_id', $request->mapel_id)
+            ->where('semester', $request->semester)
+            ->where('tahun_ajaran', $request->tahun_ajaran)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'Nilai untuk mata pelajaran, semester, dan tahun ajaran ini sudah ada.')
+                         ->withInput();
+        }
+
+        Nilai::create([
+            'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+            'santri_id' => $santri->id,
+            'mapel_id' => $request->mapel_id,
+            'nilai' => $request->nilai,
+            'semester' => $request->semester,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        LogActivity::addToLog('Tambah Nilai Santri: '.$santri->name.' - Mapel ID: '.$request->mapel_id);
+
+        return redirect()->back()->with('success', 'Nilai berhasil ditambahkan.');
     }
 }

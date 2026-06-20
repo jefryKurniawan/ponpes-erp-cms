@@ -44,16 +44,17 @@ class KeuanganRequest extends FormRequest
         $validator->after(function ($validator) {
             $jumlah = $this->input('jumlah');
             $tipe = $this->input('tipe');
+            $note = $this->input('note');
 
             if ($jumlah !== null && $tipe !== null) {
-                // For pemasukan, jumlah should not be negative (unless it's a refund/pengembalian)
-                // But we'll allow negative with a warning - actually, let's follow PRD:
-                // "Validasi jumlah harus numerik dan tidak boleh negatif untuk pemasukan (kecuali pengembalian)"
                 if ($tipe === 'pemasukan' && $jumlah < 0) {
-                    $validator->errors()->add(
-                        'jumlah',
-                        'Jumlah pemasukan tidak boleh negatif kecuali untuk pengembalian'
-                    );
+                    // Allow negative only if note indicates pengembalian (case-insensitive)
+                    if (empty($note) || !stripos($note, 'pengembalian')) {
+                        $validator->errors()->add(
+                            'jumlah',
+                            'Jumlah pemasukan tidak boleh negatif kecuali untuk pengembalian'
+                        );
+                    }
                 }
                 // For pengeluaran, we allow negative (which would represent refund/pengembalian)
                 // No additional validation needed for negative pengeluaran

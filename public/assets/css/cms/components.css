@@ -287,6 +287,38 @@
     animation: bounce 2s infinite;
 }
 
+/* Form Touch Optimization and Hover States */
+.form-control,
+.form-select {
+    min-height: 48px; /* Minimum touch target size per PRD */
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: #d0d8e0; /* Slightly darker on hover */
+    box-shadow: 0 0 0 0.2rem rgba(14, 148, 103, 0.05);
+}
+
+/* Enhanced focus state for better visibility */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(14, 148, 103, 0.25);
+    /* Optional: subtle lift on focus */
+    transform: translateY(-1px);
+}
+
+/* Form floating label enhancements */
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-select:focus ~ label {
+    /* Keep label in focused state when input has value */
+}
+
+/* Fix: Ensure brand heading is always visible */
+.navbar-brand h1 {
+    color: var(--dark);
+}
+
 /* Responsive Component Adjustments */
 @media (max-width: 767.98px) {
     .card-icon {
@@ -302,5 +334,16 @@
 
     .divider-text span {
         padding: 0 0.75rem;
+    }
+
+    /* Increased spacing for form fields on mobile */
+    .mb-3 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Larger touch targets for buttons on mobile */
+    .btn {
+        min-height: 48px;
+        min-width: 48px;
     }
 }

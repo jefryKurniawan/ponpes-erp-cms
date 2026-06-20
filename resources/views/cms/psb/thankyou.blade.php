@@ -1,5 +1,18 @@
 @extends('layouts.cms')
 
+@section("title", "Terima Kasih | Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('description', 'Terima kasih telah mengisi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('og_type', 'website')
+@section("og_title", "Terima Kasih | Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('og_description', 'Terima kasih telah mengisi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('og_image', asset('assets/img/og-image.jpg'))
+@section('twitter_card', 'summary_large_image')
+@section("twitter_title", "Terima Kasih | Pendaftaran Santri Baru | {{ $settings->nama_pesantren ?? 'Pesantren' }}")
+@section('twitter_description', 'Terima kasih telah mengisi formulir pendaftaran santri baru di pesantren {{ $settings->nama_pesantren ?? 'Pesantren' }}.')
+@section('twitter_image', asset('assets/img/twitter-image.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">

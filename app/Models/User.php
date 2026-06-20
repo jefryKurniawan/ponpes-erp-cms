@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -13,7 +14,7 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable, Uuids;
 
     public $incrementing = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +23,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'email',
         'password',
-        'role',
+        'role_id',
         'santri_id'
     ];
 
@@ -40,9 +41,24 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Santri::class, 'santri_id');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function log_activities()
     {
         return $this->hasMany(LogActivity::class);
+    }
+
+    /**
+     * Get the role name for convenience (fallback to null if no role).
+     *
+     * @return string|null
+     */
+    public function getRoleNameAttribute()
+    {
+        return $this->role ? $this->role->name : null;
     }
 
     /**
@@ -61,5 +77,5 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
-    } 
+    }
 }

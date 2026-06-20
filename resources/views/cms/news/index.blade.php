@@ -1,5 +1,16 @@
 @extends('layouts.cms')
 
+@section("title", "Berita & Kegiatan | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("description", "Daftar berita dan kegiatan terbaru dari pesantren {{ $settings?->nama_pesantren ?? 'Pesantren' }}.")
+@section("og_title", "Berita & Kegiatan | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("og_description", "Daftar berita dan kegiatan terbaru dari pesantren {{ $settings?->nama_pesantren ?? 'Pesantren' }}.")
+@section('og_image', asset('assets/img/og-image.jpg'))
+@section("twitter_title", "Berita & Kegiatan | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section("twitter_description", "Daftar berita dan kegiatan terbaru dari pesantren {{ $settings?->nama_pesantren ?? 'Pesantren' }}.")
+@section('twitter_image', asset('assets/img/twitter-image.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">

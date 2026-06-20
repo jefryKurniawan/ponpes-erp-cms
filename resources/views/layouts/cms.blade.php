@@ -8,25 +8,42 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
-        $settings = [];
+        // Initialize meta tag values with defaults
+        $metaOgTitle = 'Pesantren CMS';
+        $metaOgDescription = 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+        $metaOgImage = null;
+        $metaTwitterTitle = 'Pesantren CMS';
+        $metaTwitterDescription = 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+        $metaTwitterImage = null;
+
+        // Override with database values if available
         if (Schema::hasTable('settings')) {
             $pesantren = DB::table('settings')->where('type', 'pesantren')->first();
             if ($pesantren) {
-                $settings['og_title'] = $pesantren->nama_pesantren ?? 'Pesantren CMS';
-                $settings['og_description'] = $pesantren->isi ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+                $metaOgTitle = $pesantren->nama_pesantren ?? 'Pesantren CMS';
+                $metaOgDescription = $pesantren->isi ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
                 // No image column; leave null to use default
-                $settings['og_image'] = null;
-                $settings['twitter_title'] = $settings['og_title'];
-                $settings['twitter_description'] = $settings['og_description'];
-                $settings['twitter_image'] = null;
+                $metaOgImage = null;
+                $metaTwitterTitle = $metaOgTitle;
+                $metaTwitterDescription = $metaOgDescription;
+                $metaTwitterImage = null;
+            } else {
+                // Fallback if no pesantren settings found
+                $metaOgTitle = 'Pesantren CMS';
+                $metaOgDescription = 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
+                $metaOgImage = null;
+                $metaTwitterTitle = $metaOgTitle;
+                $metaTwitterDescription = $metaOgDescription;
+                $metaTwitterImage = null;
             }
         }
-        $ogTitle = $settings['og_title'] ?? 'Pesantren CMS';
-        $ogDescription = $settings['og_description'] ?? 'Pesantren CMS - Sistem Manajemen Pesantren Modern';
-        $ogImage = $settings['og_image'] ? asset('storage/'.$settings['og_image']) : asset('assets/img/og-image.jpg');
-        $twitterTitle = $settings['twitter_title'] ?? $ogTitle;
-        $twitterDescription = $settings['twitter_description'] ?? $ogDescription;
-        $twitterImage = $settings['twitter_image'] ? asset('storage/'.$settings['twitter_image']) : asset('assets/img/twitter-image.jpg');
+
+        $ogTitle = $metaOgTitle;
+        $ogDescription = $metaOgDescription;
+        $ogImage = $metaOgImage ? asset('storage/'.$metaOgImage) : asset('assets/img/og-image.jpg');
+        $twitterTitle = $metaTwitterTitle;
+        $twitterDescription = $metaTwitterDescription;
+        $twitterImage = $metaTwitterImage ? asset('storage/'.$metaTwitterImage) : asset('assets/img/twitter-image.jpg');
     @endphp
 
     <!-- SEO Meta Tags -->
@@ -36,7 +53,7 @@
     <meta name="author" content="Pesantren CMS">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="@yield('og_url', request()->url())">
     <meta property="og:title" content="@yield('og_title', $ogTitle)">
     <meta property="og:description" content="@yield('og_description', $ogDescription)">
@@ -45,7 +62,7 @@
     <meta property="og:locale" content="id_ID">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
     <meta property="twitter:url" content="@yield('twitter_url', request()->url())">
     <meta property="twitter:title" content="@yield('twitter_title', $twitterTitle)">
     <meta property="twitter:description" content="@yield('twitter_description', $twitterDescription)">

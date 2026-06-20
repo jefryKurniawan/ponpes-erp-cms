@@ -1,5 +1,18 @@
 @extends('layouts.cms')
 
+@section("title", "{{ $post->judul }} | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section('description', '{{ Str::limit(strip_tags($post->isi), 200) }}')
+@section('og_type', 'article')
+@section("og_title", "{{ $post->judul }} | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section('og_description', '{{ Str::limit(strip_tags($post->isi), 200) }}')
+@section('og_image', {{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('assets/img/og-image.jpg') }})
+@section('twitter_card', 'summary_large_image')
+@section("twitter_title", "{{ $post->judul }} | {{ $settings?->nama_pesantren ?? 'Pesantren' }}")
+@section('twitter_description', '{{ Str::limit(strip_tags($post->isi), 200) }}')
+@section('twitter_image', {{ $post->featured_image ? asset('storage/'.$post->featured_image) : asset('assets/img/twitter-image.jpg') }})
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
+
 @section('content')
 <!-- Page Header -->
 <section class="page-header pt-5">
