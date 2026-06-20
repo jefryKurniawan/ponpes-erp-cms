@@ -1,6 +1,6 @@
-@extends('layouts.home')
+@extends('layouts.admin')
 
-@section('title_page', 'Tambah Pengaturan CMS')
+@section('title', 'Tambah Pengaturan CMS | Admin')
 
 @section('content')
 <div class="container-fluid">

@@ -44,7 +44,7 @@ class BeritaController extends Controller
             $posts = $query->orderBy('published_at', 'desc')
                             ->paginate(10);
 
-            $categories = Category::orderBy('nama')->get();
+            $categories = Category::orderBy('name')->get();
 
             return view('admin.berita.index', compact('posts', 'categories', $request->only(['category_id', 'status'])));
         }
@@ -59,7 +59,7 @@ class BeritaController extends Controller
     public function create()
     {
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
-            $categories = Category::orderBy('nama')->get();
+            $categories = Category::orderBy('name')->get();
             return view('admin.berita.create', compact('categories'));
         }
         abort(403);
@@ -113,7 +113,7 @@ class BeritaController extends Controller
     public function edit(Post $post)
     {
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
-            $categories = Category::orderBy('nama')->get();
+            $categories = Category::orderBy('name')->get();
             return view('admin.berita.edit', compact('post', 'categories'));
         }
         abort(403);

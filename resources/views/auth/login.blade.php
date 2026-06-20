@@ -1,187 +1,134 @@
-<!--
-  PROJECT: Pesantren CMS
-  AUTHOR: Muhammad Iqbal (dibaliqaja)
-  GITHUB: https://github.com/dibaliqaja/pesantren-cms
-  TWITTER: https://twitter.com/dibaliqaja
-  FACEBOOK: https://facebook.com/dibaliqaja
-  LINKEDIN: https://linkedin.com/in/dibaliqaja
-  EMAIL: dibaliqaja@gmail.com
--->
+@extends('layouts.auth')
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login - Pesantren CMS</title>
-  <!-- Favicon -->
-  <link rel="favicon icon" href="{{ asset('assets/img/ponpes-icon.png') }}" type="image/x-icon">
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
-  <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-social/bootstrap-social.css') }}">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/ponpes-style.css') }}">
-  <!-- Custom CSS for Login Page -->
-  <style>
-    .login-brand {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .login-brand img {
-      max-width: 150px;
-      height: auto;
-    }
-    .card-primary {
-      border-top: 3px solid var(--primary);
-      border-radius: 5px;
-    }
-    .card-primary .card-body {
-      padding: 30px;
-    }
-    .btn-primary {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      border-radius: 30px;
-      padding: 12px 25px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .btn-primary:hover {
-      background-color: #096a4a;
-      border-color: #096a4a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .simple-footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #666;
-      font-size: 14px;
-    }
-    .simple-footer a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-    .simple-footer a:hover {
-      text-decoration: underline;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 576px) {
-      .section {
-        min-height: auto;
-      }
-      .container {
-        margin-top: 20px;
-      }
-      .card-body {
-        padding: 20px;
-      }
-    }
-  </style>
-</head>
+{{-- Meta tags --}}
+@section('title', 'Login | Al‑Hikmah Pesantren')
+@section('description', 'Masuk ke portal santri Al‑Hikmah Pesantren')
+@section('og_title', 'Login – Al‑Hikmah Pesantren')
+@section('og_description', 'Halaman login untuk santri, guru, dan staff')
+@section('og_image', asset('assets/img/og-image.jpg'))
+@section('twitter_title', 'Login – Al‑Hikmah Pesantren')
+@section('twitter_description', 'Masuk ke portal santri Al‑Hikmah Pesantren')
+@section('twitter_image', asset('assets/img/twitter-image.jpg'))
+@section('og_url', request()->url())
+@section('twitter_url', request()->url())
 
-<body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="https://images.unsplash.com/photo-1578662996442-48f601032960?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDI4NzB8MHwxfHNlYXJjaHwxfHxpc2xhbWl8ZW58MHx8fHwxMTY3ODk4NzY2&ixlib=rb-1.2.1&q=80&w=200" alt="Pesantren Logo" width="150">
+@section('content')
+    {{-- Reuse the common CMS header --}}
+
+    <main class="flex-grow flex items-center justify-center py-12 relative z-10">
+        <div class="w-full max-w-md">
+            {{-- Brand header inside the card area --}}
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-surface-container-high mb-2">
+                    <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">
+                        mosque
+                    </span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-primary">Al‑Hikmah Pesantren</h1>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Heritage Digital Ecosystem
+                </p>
             </div>
 
-            <div class="card card-primary">
-              @if (session('alert'))
-                <div class="alert alert-danger m-2" role="alert">
-                  <div class="text-center">{{ session('alert') }}</div>
-                </div>
-              @endif
+            <div class="cms-card p-6 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-tertiary opacity-[0.03] rounded-full blur-2xl"></div>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3">Selamat Datang</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mb-5">
+                    Silakan masuk ke Portal Santri untuk mengakses kurikulum, jadwal, dan administrasi akademik.
+                </p>
 
-              <div class="card-body">
-                <div class="text-center mb-4"><h6>Sistem Manajemen <br>Pondok Pesantren</h6></div>
-                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
-                @csrf
-                   <div class="form-group">
-                        <label for="email" class="control-label">{{ __('E-Mail Address') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email" autofocus>
+                {{-- Validation feedback --}}
+                @if ($errors->any())
+                    <div class="mb-4 rounded border border-error bg-error-container/10 p-3 text-sm text-error">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                    @csrf
+                    {{-- Email / Username field --}}
+                    <div class="space-y-1">
+                        <label for="login" class="font-label-md text-label-md text-on-surface-variant block">
+                            Email atau Username
+                        </label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                                person
                             </span>
-                        @enderror
-                    </div>
-
-                  <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
-                    </div>
-                    <div class="input-group" id="show_hide_password">
-                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
-                      <div class="input-group-append">
-                        <div class="input-group-text">
-                            <a href="javascript:void(0)"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            <input id="login" name="login" type="text" required autofocus
+                                   class="cms-input w-full pl-10"
+                                   placeholder="Masukkan email atau username">
                         </div>
-                      </div>
-
-                      @error('password')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                            </span>
-                      @enderror
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      <div style="font-size: 15px">Login</div>
+                    {{-- Password field --}}
+                    <div class="space-y-1">
+                        <div class="flex justify-between items-center">
+                            <label for="password" class="font-label-md text-label-md text-on-surface-variant block">
+                                Kata Sandi
+                            </label>
+                            <a href="#" class="font-label-sm text-label-sm text-secondary hover:underline">
+                                Lupa Sandi?
+                            </a>
+                        </div>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                                lock
+                            </span>
+                            <input id="password" name="password" type="password" required
+                                   class="cms-input w-full pl-10 pr-10"
+                                   placeholder="••••••••">
+                            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors"
+                                    id="togglePassword">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Remember me checkbox --}}
+                    <div class="flex items-center">
+                        <input id="remember" name="remember" type="checkbox"
+                               class="w-5 h-5 rounded border-outline text-primary focus:ring-primary">
+                        <label for="remember" class="ml-2 font-body-sm text-body-sm text-on-surface-variant cursor-pointer">
+                            Ingat saya di perangkat ini
+                        </label>
+                    </div>
+
+                    {{-- Submit button --}}
+                    <button type="submit" class="cms-btn-primary w-full h-12 rounded-lg font-label-md text-label-md flex items-center justify-center space-x-2">
+                        <span>Masuk ke Portal</span>
+                        <span class="material-symbols-outlined text-[20px]">login</span>
                     </button>
-                  </div>
                 </form>
 
-              </div>
+                {{-- Footer inside card --}}
+                <div class="mt-6 pt-4 border-t border-divider-clay text-center">
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Belum memiliki akun?
+                        <a href="#" class="text-primary font-bold hover:underline transition-all">Hubungi Admin</a>
+                    </p>
+                </div>
             </div>
-            <div class="simple-footer">
-              Pesantren CMS &copy; {{ date('Y') }}
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
-  </div>
+    </main>
+@endsection
 
-  <!-- General JS Scripts -->
-  <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
-  <script src="{{ asset('assets/modules/tooltip.js') }}"></script>
-  <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-  <script src="{{ asset('assets/js/digital-sign.js') }}"></script>
-  <script src="{{ asset('assets/js/stisla.js') }}"></script>
-
-  <!-- Page Specific JS File -->
-  <script>
-    $(document).ready(function() {
-        $("#show_hide_password a").on('click', function(event) {
-            event.preventDefault();
-            if($('#show_hide_password input').attr("type") == "text"){
-                $('#show_hide_password input').attr('type', 'password');
-                $('#show_hide_password i').addClass( "fa-eye-slash" );
-                $('#show_hide_password i').removeClass( "fa-eye" );
-            }else if($('#show_hide_password input').attr("type") == "password"){
-                $('#show_hide_password input').attr('type', 'text');
-                $('#show_hide_password i').removeClass( "fa-eye-slash" );
-                $('#show_hide_password i').addClass( "fa-eye" );
-            }
+{{-- Password‑visibility script – same logic as original page --}}
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('togglePassword');
+        const pwd = document.getElementById('password');
+        toggle.addEventListener('click', () => {
+            const type = pwd.getAttribute('type') === 'password' ? 'text' : 'password';
+            pwd.setAttribute('type', type);
+            toggle.querySelector('.material-symbols-outlined').textContent =
+                type === 'password' ? 'visibility' : 'visibility_off';
         });
     });
-  </script>
-
-  <!-- Template JS File -->
-  <script src="{{ asset('assets/js/scripts.js') }}"></script>
-  <script src="{{ asset('assets/js/custom.js') }}"></script>
-</body>
-</html>
+</script>
+@endsection

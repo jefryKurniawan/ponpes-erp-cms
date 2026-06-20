@@ -29,7 +29,7 @@ use App\Http\Controllers\Api\SyahriahController as ApiSyahriahController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('home');
+    return redirect()->route('cms.home');
 });
 
 Auth::routes([
@@ -39,7 +39,7 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
     Route::resource('santri', SantriController::class);
     Route::post('santri/{santri}/kelas', [SantriController::class, 'storeKelas'])->name('santri.storeKelas');
     Route::post('santri/{santri}/nilai', [SantriController::class, 'storeNilai'])->name('santri.storeNilai');
@@ -73,13 +73,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('buku-kas/credit', [CashBookController::class, 'storeCredit'])->name('buku-kas.credit.store');
     Route::delete('buku-kas/{id}', [CashBookController::class, 'destroy'])->name('buku-kas.destroy');
 
-    Route::resource('surat-masuk', InMailController::class);
-    Route::resource('surat-keluar', OutMailController::class);
+    Route::resource('surat-masuk', InMailController::class)->names('in-mail');
+    Route::resource('surat-keluar', OutMailController::class)->names('out-mail');
 
     // Konten CMS (Berita, Galeri, Pengaturan)
-    Route::resource('admin/berita', \App\Http\Controllers\Web\BeritaController::class);
-    Route::resource('admin/galeri', \App\Http\Controllers\Web\GaleriController::class);
-    Route::resource('admin/cms/settings', \App\Http\Controllers\Web\CmsSettingsController::class);
+    Route::resource('admin/berita', \App\Http\Controllers\Web\BeritaController::class)->names('admin.berita');
+    Route::resource('admin/galeri', \App\Http\Controllers\Web\GaleriController::class)->names('admin.galeri');
+    Route::resource('admin/cms/settings', \App\Http\Controllers\Web\CmsSettingsController::class)->names('admin.cms.settings');
 
     // Keuangan
     Route::resource('keuangan', \App\Http\Controllers\Web\KeuanganController::class)->except(['show']);
@@ -118,8 +118,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
     Route::get('syahriah-spp', [ApiSyahriahController::class, 'index_spp']);
 
     // Keuangan API
-    Route::apiResource('keuangan', \App\Http\Controllers\Api\KeuanganController::class)->only(['index', 'store']);
-    Route::get('keuangan/dashboard-stats', [\App\Http\Controllers\Api\KeuanganController::class, 'dashboardStats'])->name('keuangan.dashboardStats');
+    Route::apiResource('keuangan', \App\Http\Controllers\Api\KeuanganController::class)->only(['index', 'store'])->names('api.keuangan');
+    Route::get('keuangan/dashboard-stats', [\App\Http\Controllers\Api\KeuanganController::class, 'dashboardStats'])->name('api.keuangan.dashboardStats');
 });
 
 /*
@@ -132,22 +132,43 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
 |
 */
 
-Route::group(['prefix' => 'cms', 'as' => 'cms.'], function () {
+// Redirect old /cms/* URLs to new URLs (backward compatibility)
+Route::redirect('/cms', '/')->name('cms.old.redirect');
+Route::redirect('/cms/tentang-kami', '/tentang-kami');
+Route::redirect('/cms/about', '/about');
+Route::redirect('/cms/program', '/program');
+Route::redirect('/cms/pendaftaran', '/pendaftaran');
+Route::redirect('/cms/galeri', '/galeri');
+Route::redirect('/cms/gallery', '/gallery');
+Route::redirect('/cms/kontak', '/kontak');
+Route::redirect('/cms/berita', '/berita');
+Route::redirect('/cms/psb', '/psb');
+
+Route::group(['as' => 'cms.'], function () {
     Route::get('/', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'index'])->name('home');
     Route::get('/tentang-kami', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'about'])->name('about');
+    Route::get('/about', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'about'])->name('about.en');
 
     // News/Blog Routes
     Route::get('/berita', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'newsIndex'])->name('news.index');
     Route::get('/berita/{slug}', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'newsShow'])->name('news.show');
 
     // PSB (Pendaftaran Santri Baru) Routes
+    Route::get('/pendaftaran', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbForm'])->name('pendaftaran');
+    // Program page
+    Route::get('/program', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'program'])->name('program');
+    Route::get('/pendaftaran', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbForm'])->name('pendaftaran');
     Route::get('/psb', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psb'])->name('psb');
     Route::get('/psb/daftar', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbForm'])->name('psb.form');
     Route::post('/psb/daftar', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbSubmit'])->name('psb.submit');
     Route::get('/psb/terima-kasih', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'psbThankYou'])->name('psb.thankyou');
 
     // Gallery Route
+    // Contact page
+    Route::get('/kontak', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'kontak'])->name('kontak');
     Route::get('/galeri', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery');
+    // Alias for English slug
+    Route::get('/gallery', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery');
 
     // TODO: Add more routes for contact, etc.
 });

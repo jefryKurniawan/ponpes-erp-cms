@@ -1,17 +1,18 @@
-@extends('layouts.home')
+@extends('layouts.admin')
 
-@section('title_page', 'Tambah Galeri')
+@section('title', 'Tambah Galeri | Admin')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tambah Galeri</h1>
-        <a href="{{ route('admin.galeri.index') }}" class="btn btn-sm btn-outline-secondary">Kembali</a>
+<div class="max-w-4xl mx-auto">
+    <div class="mb-6">
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-2">Tambah Galeri</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Tambahkan galeri baru untuk dokumentasi pesantren.</p>
     </div>
 
     @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
+        <div class="mb-6 rounded-lg border border-error bg-error-container/10 p-4">
+            <h4 class="font-label-md text-error mb-2">Validasi Error:</h4>
+            <ul class="list-disc list-inside text-on-surface-variant">
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -19,59 +20,51 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row mb-3">
-            <label for="nama" class="col-md-2 col-form-label">Nama Galeri</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" required>
+    <div class="cms-card bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/20">
+        <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+
+            <div>
+                <label for="nama" class="block font-label-md text-on-surface mb-2">Nama Galeri</label>
+                <input type="text" class="cms-input w-full @error('nama') border-error @enderror" id="nama" name="nama" value="{{ old('nama') }}" required placeholder="Contoh: Kegiatan Ramadhan 1447 H">
                 @error('nama')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="text-error text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
 
-        <div class="row mb-3">
-            <label for="keterangan" class="col-md-2 col-form-label">Keterangan</label>
-            <div class="col-md-10">
-                <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" rows="3">{{ old('keterangan') }}</textarea>
+            <div>
+                <label for="keterangan" class="block font-label-md text-on-surface mb-2">Keterangan</label>
+                <textarea class="cms-input w-full @error('keterangan') border-error @enderror" id="keterangan" name="keterangan" rows="4" placeholder="Deskripsi singkat tentang galeri ini...">{{ old('keterangan') }}</textarea>
                 @error('keterangan')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="text-error text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
 
-        <div class="row mb-3">
-            <label for="is_active" class="col-md-2 col-form-label">Status Aktif</label>
-            <div class="col-md-10">
-                <div class="form-check">
-                    <input class="form-check-input @error('is_active') is-invalid @enderror" type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}>
-                    @error('is_active')
-                        <span class="invalid-feedback">{{ $message }}</span>
-                    @enderror
+            <div>
+                <label for="is_active" class="block font-label-md text-on-surface mb-2">Status Aktif</label>
+                <div class="flex items-center gap-3">
+                    <input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}>
+                    <label for="is_active" class="font-body-sm text-on-surface-variant">Centang jika galeri aktif ditampilkan</label>
                 </div>
-                <small class="text-muted">Centang jika galeri aktif ditampilkan</small>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label for="gambar" class="col-md-2 col-form-label">Gambar Sampul</label>
-            <div class="col-md-10">
-                <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" accept="image/*">
-                @error('gambar')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                @error('is_active')
+                    <p class="text-error text-sm mt-1">{{ $message }}</p>
                 @enderror
-                <small class="text-muted">Format: JPG, PNG, maksimal 2MB</small>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-10">
-                <button type="submit" class="btn btn-primary">Simpan Galeri</button>
-                <a href="{{ route('admin.galeri.index') }}" class="btn btn-outline-secondary">Batal</a>
+            <div>
+                <label for="gambar" class="block font-label-md text-on-surface mb-2">Gambar Sampul</label>
+                <input class="cms-input w-full @error('gambar') border-error @enderror" type="file" id="gambar" name="gambar" accept="image/*">
+                @error('gambar')
+                    <p class="text-error text-sm mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-on-surface-variant text-sm mt-1">Format: JPG, PNG, maksimal 2MB</p>
             </div>
-        </div>
-    </form>
+
+            <div class="flex gap-3 pt-4">
+                <button type="submit" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:bg-primary/90 transition-colors">Simpan Galeri</button>
+                <a href="{{ route('admin.galeri.index') }}" class="border border-outline bg-surface text-on-surface px-6 py-2 rounded-lg font-label-md hover:bg-surface-container transition-colors">Batal</a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

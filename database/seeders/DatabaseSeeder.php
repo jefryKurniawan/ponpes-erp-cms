@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Santri::factory()->create();
         // \App\Models\User::factory()->create();
         $this->call([
-            // Core tables
+            // Core tables - Roles must come before Users
+            RolesTableSeeder::class,
             UsersTableSeeder::class,
             SantrisTableSeeder::class,
             CostsTableSeeder::class,

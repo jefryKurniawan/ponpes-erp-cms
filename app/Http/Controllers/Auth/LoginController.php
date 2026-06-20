@@ -35,6 +35,70 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'login';
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? response()->noContent()
+            : redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $login = $request->get($this->username());
+
+        // Determine if login is email or username
+        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $login, 'password' => $request->get('password')];
+        }
+
+        // Fallback to email field anyway since User model only has email
+        return ['email' => $login, 'password' => $request->get('password')];
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -53,7 +117,15 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role == 'Santri') {
+        // Load role relationship if not already loaded
+        if (!$user->role) {
+            $user->load('role');
+        }
+
+        $roleName = $user->role ? $user->role->name : null;
+
+        // Block Santri role from accessing admin panel
+        if ($roleName === 'Santri') {
             Auth::logout();
             Session::flush();
 
@@ -61,7 +133,7 @@ class LoginController extends Controller
                 ->with('alert', 'Pengguna tidak memiliki hak akses pada web.');
         }
 
-        LogActivity::addToLog('User Login');
+        LogActivity::addToLog('User Login: ' . ($user->email ?? 'unknown'));
     }
 
     /**

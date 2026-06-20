@@ -445,7 +445,7 @@ a:hover {
     padding: 0.75rem 1.5rem;
     margin: 0.25rem 1rem;
     border-radius: var(--border-radius);
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
     font-weight: 500;
@@ -687,7 +687,7 @@ a:hover {
     width: 2em;
     height: 2em;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%230E9467' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
 }
 
@@ -705,7 +705,7 @@ a:hover {
     background-color: var(--light);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(14, 148, 103, 0.1);
-    animation: dropdownSlide 0.4s ease;
+    animation: dropdownSlide 0.2s ease;
 }
 
 @keyframes dropdownSlide {
@@ -1124,7 +1124,7 @@ a:hover {
 }
 
 .hero-image:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-4px) scale(1.01);
     box-shadow: 0 20px 25px rgba(0,0,0,0.15);
 }
 
@@ -1199,7 +1199,7 @@ a:hover {
 /* Enhanced stat item hover effects */
 .stat-item:hover {
     background-color: white;
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow);
     border-color: rgba(0,0,0,0.08);
 }
@@ -1295,7 +1295,7 @@ a:hover {
 }
 
 .about-image:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-3px) scale(1.01);
     box-shadow: 0 15px 20px rgba(0,0,0,0.1);
 }
 
@@ -1376,7 +1376,7 @@ a:hover {
 
 /* Enhanced news card hover */
 .news-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: rgba(0,0,0,0.08);
 }
@@ -1556,7 +1556,7 @@ a:hover {
 
 /* Hover effects for gallery items */
 .gallery-item:hover {
-    transform: translateY(-6px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
     border-color: var(--secondary);
 }
@@ -1566,7 +1566,7 @@ a:hover {
     width: 100%;
     height: 240px;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    transition: transform 0.2s ease;
 }
 
 .gallery-item:hover .gallery-img {

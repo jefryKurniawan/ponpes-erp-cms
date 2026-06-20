@@ -1,113 +1,146 @@
-@extends('layouts.home')
-@section('title_page','Data Santri')
-@section('content')
+@extends('layouts.admin')
 
-    @if (Session::has('alert'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ Session('alert') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+@section('title', 'Data Santri')
+
+@section('content')
+<div class="max-w-6xl mx-auto">
+    <div class="mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="font-headline-md text-headline-md text-on-surface">Data Santri</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Kelola data santri pesantren</p>
+            </div>
+            <a href="{{ route('santri.create') }}" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm hover:bg-primary/90 transition-colors">
+                Tambah Santri
+            </a>
+        </div>
+    </div>
+
+    @if(Session::has('alert'))
+        <div class="mb-6 rounded-lg border border-warning bg-warning-container/10 p-4">
+            <p class="font-body-sm text-warning">{{ Session('alert') }}</p>
         </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-8">
-            <a href="{{ route('santri.create') }}" class="btn btn-primary">Tambah Santri</a><br><br>
-        </div>
-        <div class="col-md-4 mb-3">
-            <form action="#" class="flex-sm">
-                <div class="input-group">
-                    <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary mr-2 rounded-right" type="submit"><i class="fas fa-search"></i></button>
-                        <button onclick="window.location.href='{{ route('santri.index') }}'" type="button" class="btn btn-md btn-secondary rounded"><i class="fas fa-sync-alt"></i></button>
-                    </div>
-                </div>
+    <div class="cms-card bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden mb-6">
+        <div class="p-4 border-b border-outline-variant/10">
+            <form action="#" method="GET" class="flex gap-3">
+                <input type="text" name="keyword" class="cms-input flex-1" placeholder="Cari santri..." value="{{ Request::get('keyword') }}">
+                <button type="submit" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm hover:bg-primary/90 transition-colors">
+                    <span class="material-symbols-outlined text-sm">search</span>
+                </button>
+                <a href="{{ route('santri.index') }}" class="border border-outline bg-surface text-on-surface px-4 py-2 rounded-lg font-label-sm hover:bg-surface-container transition-colors">
+                    <span class="material-symbols-outlined text-sm">refresh</span>
+                </a>
             </form>
         </div>
-    </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr align="center">
-                    <th width="5%">No</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>No. HP</th>
-                    <th width="13%">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($data as $santri => $result)
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-surface-container text-on-surface-variant">
                     <tr>
-                        <td>{{ $santri + $data->firstitem() }}</td>
-                        <td><a href="{{ route('santri.show', $result->id) }}">{{ $result->name }}</a></td>
-                        <td>{{ $result->address }}</td>
-                        <td>{{ $result->phone }}</td>
-                        <td align="center">
-                            @if (Auth::user()->role == 'Pengurus')
-                                <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                            @else                                
-                                <a href="{{ route('santri.edit', $result->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-pen"></i></a>
-                                <a href="javascript:void(0)" id="btn-delete" class="btn btn-sm btn-danger" onclick="deleteData('{{ $result->id }}')" data-toggle="modal" data-target="#deleteSantriModal"><i class="fas fa-trash"></i></a>
-                            @endif
-                        </td>
+                        <th class="px-4 py-3 text-center font-label-sm" width="5%">No</th>
+                        <th class="px-4 py-3 text-left font-label-sm">Nama</th>
+                        <th class="px-4 py-3 text-left font-label-sm">Alamat</th>
+                        <th class="px-4 py-3 text-left font-label-sm">No. HP</th>
+                        <th class="px-4 py-3 text-center font-label-sm" width="13%">Aksi</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="6">Tidak ada data.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    <div class="mt-2 float-left">
-        <span class="ml-3">Data Keseluruhan: <span class="text-primary font-weight-bold">{{ DB::table('santris')->count() }}</span> Santri telah terdaftar.</span>
-    </div>
-    <div class="mt-3 float-right">
-        {{ $data->links() }}
-    </div>
-
-@endsection
-
-@section('modal')
-    <!-- Modal Delete -->
-    <div class="modal fade" id="deleteSantriModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <form action="javascript:void(0)" id="deleteForm" method="post">
-                @method('DELETE')
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="vcenter">Hapus Santri</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Apakah anda yakin?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" onclick="formSubmit()" class="btn btn-danger">Hapus</button>
-                    </div>
-                </div>
-            </form>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/10">
+                    @forelse($data as $santri => $result)
+                        <tr class="hover:bg-surface-container/50 transition-colors">
+                            <td class="px-4 py-3 text-center text-on-surface-variant">{{ $santri + $data->firstitem() }}</td>
+                            <td class="px-4 py-3">
+                                <a href="{{ route('santri.show', $result->id) }}" class="text-primary hover:text-primary/80 font-medium">{{ $result->name }}</a>
+                            </td>
+                            <td class="px-4 py-3 text-on-surface">{{ $result->address }}</td>
+                            <td class="px-4 py-3 text-on-surface">{{ $result->phone }}</td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center justify-center gap-2">
+                                    <a href="{{ route('santri.edit', $result->id) }}" class="text-info hover:text-info/80 transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined text-sm">edit</span>
+                                    </a>
+                                    @if(Auth::user()->role->name !== 'Pengurus')
+                                        <button type="button" class="text-error hover:text-error/80 transition-colors" title="Hapus" onclick="deleteData('{{ $result->id }}')" data-modal="deleteSantriModal">
+                                            <span class="material-symbols-outlined text-sm">delete</span>
+                                        </button>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-4 py-8 text-center text-on-surface-variant">Tidak ada data santri.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-@endsection
 
-@section('script')
-    <script>
-        function deleteData(id) {
-            let url = '{{ route("santri.destroy", ":id") }}';
-            url     = url.replace(':id', id);
-            $("#deleteForm").attr('action', url);
+    <div class="flex items-center justify-between">
+        <span class="text-on-surface-variant text-sm">
+            Data Keseluruhan: <span class="font-label-md text-primary font-medium">{{ \App\Models\Santri::count() }}</span> santri telah terdaftar.
+        </span>
+        @if($data->hasPages())
+            <div>
+                {{ $data->links() }}
+            </div>
+        @endif
+    </div>
+</div>
+
+@push('modal')
+<!-- Modal Delete -->
+<div class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center" id="deleteSantriModal" data-modal-overlay>
+    <div class="bg-surface rounded-xl p-6 max-w-md mx-4 shadow-xl" role="dialog">
+        <form action="javascript:void(0)" id="deleteForm" method="post">
+            @method('DELETE')
+            @csrf
+            <div class="flex items-center justify-between mb-4">
+                <h4 class="font-headline-sm text-headline-sm text-on-surface">Hapus Santri</h4>
+                <button type="button" class="text-on-surface-variant hover:text-on-surface" onclick="closeModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="mb-6">
+                <p class="text-on-surface-variant">Apakah Anda yakin ingin menghapus santri ini?</p>
+            </div>
+            <div class="flex gap-3 justify-end">
+                <button type="button" class="border border-outline bg-surface text-on-surface px-4 py-2 rounded-lg font-label-sm hover:bg-surface-container transition-colors" onclick="closeModal()">
+                    Batal
+                </button>
+                <button type="submit" class="bg-error text-on-error px-4 py-2 rounded-lg font-label-sm hover:bg-error/90 transition-colors">
+                    Hapus
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endpush
+
+@push('scripts')
+<script>
+    function deleteData(id) {
+        let url = '{{ route("santri.destroy", ":id") }}';
+        url = url.replace(':id', id);
+        document.getElementById('deleteForm').action = url;
+        document.getElementById('deleteSantriModal').classList.remove('hidden');
+        document.getElementById('deleteSantriModal').classList.add('flex');
+    }
+
+    function closeModal() {
+        document.getElementById('deleteSantriModal').classList.add('hidden');
+        document.getElementById('deleteSantriModal').classList.remove('flex');
+    }
+
+    // Close modal on outside click
+    document.addEventListener('click', function(event) {
+        let modal = document.getElementById('deleteSantriModal');
+        if (event.target === modal) {
+            closeModal();
         }
-        function formSubmit() {
-            $("#deleteForm").submit();
-        }
-    </script>
+    });
+</script>
+@endpush
 @endsection

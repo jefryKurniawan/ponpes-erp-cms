@@ -113,19 +113,15 @@
     <link rel="apple-touch-icon" href="{{ asset('assets/img/apple-touch-icon.png') }}">
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <!-- Custom CSS (Tailwind utilities are CDN‑based; additional component CSS) -->
     <link rel="stylesheet" href="{{ asset('assets/css/cms/components.css') }}">
     @yield('styles')
 </head>
 <body class="font-body-md text-body-md custom-scrollbar bg-surface text-on-surface">
     <div id="app">
-        @include('cms.partials.header')
         <main>
             @yield('content')
         </main>
-        @include('cms.partials.footer')
     </div>
-    <!-- Tailwind does not need jQuery/Bootstrap JS -->
     <script src="{{ asset('assets/js/cms/main.js') }}"></script>
     @yield('script')
 </body>

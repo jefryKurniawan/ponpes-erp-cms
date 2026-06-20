@@ -86,7 +86,7 @@ class CashBookController extends Controller
                 ->with('alert', 'Saldo tidak mencukupi.');
         }
 
-        return view('cash-book.credit');
+        return view('cash-book.credit', compact('balance'));
     }
 
     /**

@@ -52,13 +52,13 @@
                 </a>
             </li>
             <li class="menu-header">Administrasi</li>
-            <li class="{{ (request()->routeIs('surat-masuk*')) ? 'active' : '' }}">
-                <a href="{{ route('surat-masuk.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('in-mail*')) ? 'active' : '' }}">
+                <a href="/surat-masuk" class="nav-link">
                     <i class="fas fa-envelope"></i><span>Surat Masuk</span>
                 </a>
             </li>
-            <li class="{{ (request()->routeIs('surat-keluar*')) ? 'active' : '' }}">
-                <a href="{{ route('surat-keluar.index') }}" class="nav-link">
+            <li class="{{ (request()->routeIs('out-mail*')) ? 'active' : '' }}">
+                <a href="/surat-keluar" class="nav-link">
                     <i class="fas fa-envelope-open-text"></i><span>Surat Keluar</span>
                 </a>
             </li>

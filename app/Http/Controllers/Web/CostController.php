@@ -29,7 +29,7 @@ class CostController extends Controller
     public function index(Request $request)
     {
         $data = Cost::first();
-        
+
         return view('cost.index', compact('data'));
     }
 
@@ -41,8 +41,8 @@ class CostController extends Controller
     public function edit()
     {
         if (Gate::allows('admin')) {
-            $data = Cost::first();
-    
+            $data = Cost::firstOrNew();
+
             return view('cost.edit', compact('data'));
         }
         abort(403);
@@ -57,8 +57,9 @@ class CostController extends Controller
     public function update(CostRequest $request)
     {
         if (Gate::allows('admin')) {
-            $cost = Cost::first();
-            $cost->update($request->validated());
+            $cost = Cost::firstOrNew();
+            $cost->fill($request->validated());
+            $cost->save();
 
             LogActivity::addToLog('Edit Biaya Pembayaran');
             return redirect()->route('biaya.index')

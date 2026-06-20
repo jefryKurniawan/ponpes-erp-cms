@@ -49,6 +49,11 @@ function initAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                    // Apply staggered delay class if data-delay attribute exists
+                    const delay = entry.target.dataset.delay;
+                    if (delay) {
+                        entry.target.classList.add(`delay-${delay}`);
+                    }
                 observer.unobserve(entry.target);
             }
         });

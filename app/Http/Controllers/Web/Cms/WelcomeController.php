@@ -255,6 +255,23 @@ class WelcomeController extends Controller
     /**
      * Show PSB thank you page.
      */
+    public function program()
+    {
+        $settings = null;
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+        return view('cms.program', compact('settings'));
+    }
+
     public function psbThankYou()
     {
         $settings = null;
@@ -303,4 +320,25 @@ class WelcomeController extends Controller
 
         return view('cms.gallery', compact('settings', 'galleryImages'));
     }
+
+    /**
+     * Show the contact page.
+     */
+    public function kontak()
+    {
+        $settings = null;
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->where('type', 'pesantren')->first();
+        }
+        if (!$settings) {
+            $settings = (object) [
+                'nama_pesantren' => 'Pesantren',
+                'isi' => 'Pesantren CMS - Sistem Manajemen Pesantren Modern',
+                'tahun_berdiri' => 'XXXX',
+                'pendiri' => 'Nama Pendiri'
+            ];
+        }
+        return view('cms.kontak', compact('settings'));
+    }
+
 }

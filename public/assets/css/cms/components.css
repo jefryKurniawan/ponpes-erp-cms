@@ -5,7 +5,8 @@
 .animated-element {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    /* GPU-accelerated, short transition for smooth PRD‑compliant animations */
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .animated-element.visible {
@@ -27,7 +28,8 @@
 
 /* Card Variants */
 .card-hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth micro‑interaction (≤200 ms) */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-hover-lift:hover {
@@ -249,7 +251,8 @@
     }
 }
 
-.pulse {
+.pulse { /* ponytail: reduced duration to meet PRD */
+    animation: pulse 0.2s infinite;
     animation: pulse 2s infinite;
 }
 
@@ -283,7 +286,8 @@
     }
 }
 
-.bounce {
+.bounce { /* ponytail: reduced duration to meet PRD */
+    animation: bounce 0.2s infinite;
     animation: bounce 2s infinite;
 }
 

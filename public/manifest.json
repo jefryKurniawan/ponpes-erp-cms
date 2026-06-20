@@ -1,0 +1,21 @@
+{
+  "name": "Pesantren ERP-CMS Heritage Organic",
+  "short_name": "Pesantren ERP",
+  "description": "Sistem Informasi Terpadu dan Frontend Publik Pesantren Heritage Organic.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#0E9467",
+  "icons": [
+    {
+      "src": "assets/img/favicon_for_a_traditional_indonesian_pesantren_brand_named_heritage_organic..png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
