@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin-simple')
 @section('title_page','Data Surat Keluar')
 @section('content')
     <!-- Header -->
