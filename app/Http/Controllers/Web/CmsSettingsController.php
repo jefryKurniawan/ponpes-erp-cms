@@ -29,9 +29,15 @@ class CmsSettingsController extends Controller
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
             $settings = Setting::orderBy('type')
                                 ->get()
-                                ->groupBy('type');
+                                ->groupBy('type')
+                                ->filter(function ($group, $key) {
+                                    return is_string($key)
+                                        && $group instanceof \Illuminate\Support\Collection
+                                        && !$group->isEmpty()
+                                        && $group->first() instanceof \App\Models\Setting;
+                                });
 
-            return view('admin.cms.settings.index', compact('settings'));
+            return view('admin.settings.index', compact('settings'));
         }
         abort(403);
     }
@@ -44,7 +50,7 @@ class CmsSettingsController extends Controller
     public function create()
     {
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
-            return view('admin.cms.settings.create');
+            return view('admin.settings.create');
         }
         abort(403);
     }
@@ -63,7 +69,7 @@ class CmsSettingsController extends Controller
 
         Setting::create($request->validated());
 
-        return redirect()->route('admin.cms.settings.index')
+        return redirect()->route('admin.settings.index')
                         ->with('success', 'Pengaturan CMS berhasil ditambahkan.');
     }
 
@@ -76,7 +82,7 @@ class CmsSettingsController extends Controller
     public function show(Setting $setting)
     {
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
-            return view('admin.cms.settings.show', compact('setting'));
+            return view('admin.settings.show', compact('setting'));
         }
         abort(403);
     }
@@ -90,7 +96,7 @@ class CmsSettingsController extends Controller
     public function edit(Setting $setting)
     {
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
-            return view('admin.cms.settings.edit', compact('setting'));
+            return view('admin.settings.edit', compact('setting'));
         }
         abort(403);
     }
@@ -109,7 +115,7 @@ class CmsSettingsController extends Controller
 
         $setting->update($request->validated());
 
-        return redirect()->route('admin.cms.settings.index')
+        return redirect()->route('admin.settings.index')
                         ->with('success', 'Pengaturan CMS berhasil diperbarui.');
     }
 
@@ -127,7 +133,7 @@ class CmsSettingsController extends Controller
 
         $setting->delete();
 
-        return redirect()->route('admin.cms.settings.index')
+        return redirect()->route('admin.settings.index')
                         ->with('success', 'Pengaturan CMS berhasil dihapus.');
     }
 }

@@ -1,53 +1,53 @@
 
-@extends('layouts.home')
-@section('title_page','Log Aktivitas')
+@extends('layouts.admin')
+@section('title','Log Aktivitas')
 
 @section('content')
 
-    <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-4 mb-3">
-            <form action="#" class="flex-sm">
-                <div class="input-group">
-                    <input type="text" name="keyword" class="form-control" placeholder="Search" value="{{ Request::get('keyword') }}">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary mr-2 rounded-right" type="submit"><i class="fas fa-search"></i></button>
-                        <button onclick="window.location.href='{{ route('logs.index') }}'" type="button" class="btn btn-md btn-secondary rounded"><i class="fas fa-sync-alt"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div class="flex justify-end mb-4 space-x-2">
+    <form action="{{ route('logs.index') }}" method="GET" class="flex items-center">
+        <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Search" class="border border-outline-variant/20 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+        <button type="submit" class="bg-primary text-on-primary px-4 py-2 rounded-r-md hover:bg-primary/90 transition-colors flex items-center">
+            <span class="material-symbols-outlined mr-1">search</span>
+        </button>
+        <button type="button" onclick="window.location.href='{{ route('logs.index') }}'" class="ml-2 bg-secondary text-on-secondary px-4 py-2 rounded-md hover:bg-secondary/90 transition-colors flex items-center">
+            <span class="material-symbols-outlined mr-1">refresh</span>
+        </button>
+    </form>
+</div>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr align="center">
-                    <th width="5%">No</th>
-                    <th>Time</th>
-                    <th>Subject</th>
-                    <th>URL</th>
-                    <th>Action By</th>
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-outline-variant">
+        <thead class="bg-surface-container-low">
+            <tr>
+                <th class="px-4 py-2 text-left text-sm font-medium text-on-surface-variant">No</th>
+                <th class="px-4 py-2 text-left text-sm font-medium text-on-surface-variant">Time</th>
+                <th class="px-4 py-2 text-left text-sm font-medium text-on-surface-variant">Subject</th>
+                <th class="px-4 py-2 text-left text-sm font-medium text-on-surface-variant">URL</th>
+                <th class="px-4 py-2 text-left text-sm font-medium text-on-surface-variant">Action By</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-outline-variant/10">
+            @forelse($data as $log => $result)
+                <tr>
+                    <td class="px-4 py-2 text-sm text-on-surface">{{ $log + $data->firstitem() }}</td>
+                    <td class="px-4 py-2 text-sm text-primary"><small>{{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</small></td>
+                    <td class="px-4 py-2 text-sm text-on-surface">{{ $result->subject }}</td>
+                    <td class="px-4 py-2 text-sm text-warning"><small>{{ $result->url }}</small></td>
+                    <td class="px-4 py-2 text-sm text-on-surface">
+                        {{ $result->users && $result->users->santris ? $result->users->santris->name : 'N/A' }}<br>
+                        <small class="text-info">{{ $result->users->email }}</small>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @forelse($data as $log => $result)
-                    <tr align="center">
-                        <td>{{ $log + $data->firstitem()  }}</td>
-                        <td><small class="text-primary">{{ \Carbon\Carbon::parse($result->created_at)->diffForHumans() }}</small></td>
-                        <td>{{ $result->subject }}</td>
-                        <td><small class="text-warning">{{ $result->url }}</small></td>
-                        <td>{{ $result->users->santris->name }} <br><small class="text-info">{{ $result->users->email }}</small> </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5">Tidak ada data.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    <div class="mt-3">
+            @empty
+                <tr>
+                    <td colspan="5" class="px-4 py-4 text-center text-on-surface-variant">Tidak ada data.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+    <div class="mt-6 flex justify-center">
         {{ $data->links() }}
     </div>
 

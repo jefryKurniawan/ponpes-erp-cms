@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
             SettingsTableSeeder::class,
 
             // Other tables
-            InMail::class,
-            OutMail::class,
-            PsbApplicationSeeder::class,
+            // InMail::class,
+            // OutMail::class,
+            // PsbApplicationSeeder::class,
         ]);
     }
 }

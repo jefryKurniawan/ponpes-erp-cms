@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Pengaturan CMS | Admin')
+@section('title', 'Tambah Pengaturan Sistem | Admin')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tambah Pengaturan CMS</h1>
-        <a href="{{ route('admin.cms.settings.index') }}" class="btn btn-sm btn-outline-secondary">Kembali</a>
+        <h1 class="h2">Tambah Pengaturan Sistem</h1>
+        <a href="{{ route('admin.settings.index') }}" class="btn btn-sm btn-outline-secondary">Kembali</a>
     </div>
 
     @if($errors->any())
@@ -19,7 +19,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.cms.settings.store') }}" method="POST">
+    <form action="{{ route('admin.settings.store') }}" method="POST">
         @csrf
         <div class="row mb-3">
             <label for="type" class="col-md-2 col-form-label">Tipe Pengaturan</label>
@@ -86,7 +86,7 @@
             <div class="col-md-10">
                 <input type="date" class="form-control @error('tanggal_buka') is-invalid @enderror" id="tanggal_buka" name="tanggal_buka" value="{{ old('tanggal_buka') }}">
                 @error('tanggal_buka')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback>{{ $message }}</div>
                 @enderror
             </div>
         </div>
@@ -96,7 +96,7 @@
             <div class="col-md-10">
                 <input type="date" class="form-control @error('tanggal_tutup') is-invalid @enderror" id="tanggal_tutup" name="tanggal_tutup" value="{{ old('tanggal_tutup') }}">
                 @error('tanggal_tutup')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback>{{ $message }}</div>
                 @enderror
             </div>
         </div>
@@ -147,7 +147,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-10">
                 <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
-                <a href="{{ route('admin.cms.settings.index') }}" class="btn btn-outline-secondary">Batal</a>
+                <a href="{{ route('admin.settings.index') }}" class="btn btn-outline-secondary">Batal</a>
             </div>
         </div>
     </form>

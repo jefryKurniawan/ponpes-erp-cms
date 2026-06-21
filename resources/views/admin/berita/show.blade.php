@@ -15,9 +15,9 @@
                     Kembali
                 </a>
                 @can('admin', 'bendahara')
-                <a href="{{ route('admin.berita.edit', $post->id) }}" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm hover:bg-primary/90 transition-colors">
-                    Edit
-                </a>
+                    <a href="{{ route('admin.berita.edit', ['beritum' => $post->id]) }}" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm hover:bg-primary/90 transition-colors">
+                        Edit
+                    </a>
                 @endcan
             </div>
         </div>
@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:colspan-3 gap-6 mb-6">
         <div class="md:col-span-1">
             <div class="cms-card bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/20">
                 <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Thumbnail</h3>

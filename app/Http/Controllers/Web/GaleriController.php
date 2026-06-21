@@ -38,7 +38,8 @@ class GaleriController extends Controller
             $galleries = $query->orderBy('created_at', 'desc')
                                 ->paginate(10);
 
-            return view('admin.galeri.index', compact('galleries', $request->only(['is_active'])));
+            $is_active = $request->input('is_active');
+            return view('admin.galeri.index', compact('galleries', 'is_active'));
         }
         abort(403);
     }

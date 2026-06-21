@@ -93,3 +93,75 @@ body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
 .page-link:not(:disabled):not(.disabled):hover {
   color: var(--white);
 }
+
+/* Active Sidebar Styles - Enhanced active state indicators */
+.main-sidebar .sidebar-menu li.active-sidebar {
+  /* Background color for active menu item */
+  background-color: var(--primary);
+  /* Subtle shadow/depth */
+  box-shadow: 0 4px 12px rgba(0, 105, 72, 0.15);
+  /* Border radius for smoother look */
+  border-radius: 6px;
+  /* Margin to prevent touching other items */
+  margin: 4px 0;
+}
+
+.main-sidebar .sidebar-menu li.active-sidebar .nav-link.active-sidebar-link {
+  /* Text color when active */
+  color: var(--white) !important;
+}
+
+.main-sidebar .sidebar-menu li.active-sidebar .nav-link.active-sidebar-link .active-sidebar-icon,
+.main-sidebar .sidebar-menu li.active-sidebar .nav-link.active-sidebar-link [class*="fas"],
+.main-sidebar .sidebar-menu li.active-sidebar .nav-link.active-sidebar-link [class*="far"] {
+  /* Icon color when active - match text color */
+  color: var(--white) !important;
+  /* Optional: slightly increase icon size/weight for emphasis */
+  font-weight: 600;
+}
+
+/* Hover effect for active items - make it more pronounced */
+.main-sidebar .sidebar-menu li.active-sidebar:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 16px rgba(0, 105, 72, 0.2);
+}
+
+.main-sidebar .sidebar-menu li.active-sidebar:hover .nav-link.active-sidebar-link {
+  color: var(--white) !important;
+}
+
+.main-sidebar .sidebar-menu li.active-sidebar:hover .nav-link.active-sidebar-link .active-sidebar-icon,
+.main-sidebar .sidebar-menu li.active-sidebar:hover .nav-link.active-sidebar-link [class*="fas"],
+.main-sidebar .sidebar-menu li.active-sidebar:hover .nav-link.active-sidebar-link [class*="far"] {
+  color: var(--white) !important;
+}
+
+/* Dropdown menu active states - keep existing styles but enhance */
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
+  color: var(--primary);
+  background-color: rgba(14, 148, 103, 0.1);
+}
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a:hover {
+  background-color: rgba(14, 148, 103, 0.2);
+}
+
+/* Ensure proper spacing and styling for sidebar items */
+.main-sidebar .sidebar-menu li {
+  margin: 2px 0;
+}
+
+.main-sidebar .sidebar-menu li > .nav-link {
+  border-radius: 4px;
+  padding: 10px 12px;
+  transition: all 0.2s ease;
+}
+
+.main-sidebar .sidebar-menu li > .nav-link:hover {
+  background-color: rgba(14, 148, 103, 0.08);
+}
+
+.main-sidebar .sidebar-menu li > .nav-link:hover [class*="fas"],
+.main-sidebar .sidebar-menu li > .nav-link:hover [class*="far"] {
+  color: var(--primary);
+}

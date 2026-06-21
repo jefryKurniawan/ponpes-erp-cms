@@ -76,15 +76,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('surat-masuk', InMailController::class)->names('in-mail');
     Route::resource('surat-keluar', OutMailController::class)->names('out-mail');
 
+        // Alias routes for backward compatibility
+        Route::get('surat-keluar', [OutMailController::class, 'index'])->name('surat-keluar.index');
+        Route::get('surat-keluar/create', [OutMailController::class, 'create'])->name('surat-keluar.create');
+        // DELETE alias for destroying surat keluar entries
+        Route::delete('surat-keluar/{id}', [OutMailController::class, 'destroy'])->name('surat-keluar.destroy');
     // Konten CMS (Berita, Galeri, Pengaturan)
     Route::resource('admin/berita', \App\Http\Controllers\Web\BeritaController::class)->names('admin.berita');
     Route::resource('admin/galeri', \App\Http\Controllers\Web\GaleriController::class)->names('admin.galeri');
-    Route::resource('admin/cms/settings', \App\Http\Controllers\Web\CmsSettingsController::class)->names('admin.cms.settings');
+    Route::resource('admin/settings', \App\Http\Controllers\Web\CmsSettingsController::class)->names('admin.settings');
 
     // Keuangan
     Route::resource('keuangan', \App\Http\Controllers\Web\KeuanganController::class)->except(['show']);
     Route::get('keuangan/{cashBook}', [\App\Http\Controllers\Web\KeuanganController::class, 'show'])->name('keuangan.show');
     Route::get('keuangan/export/{type}', [\App\Http\Controllers\Web\KeuanganController::class, 'export'])->name('keuangan.export')->whereIn('type', ['pdf', 'excel']);
+
+    // Dashboard stats endpoint for keuangan module (used by admin dashboard)
+    Route::get('keuangan/dashboard-stats', [\App\Http\Controllers\Api\KeuanganController::class, 'dashboardStats'])->name('keuangan.dashboardStats');
+
+    // Batik overlay endpoint
+    Route::get('/overlay/batik', function () {
+        return view('overlays.batik');
+    })->name('overlay.batik');
 });
 
 /*
@@ -119,6 +132,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
 
     // Keuangan API
     Route::apiResource('keuangan', \App\Http\Controllers\Api\KeuanganController::class)->only(['index', 'store'])->names('api.keuangan');
+    // Inventaris (baru)
+    Route::resource('inventaris', \App\Http\Controllers\Web\InventarisController::class)->names('inventaris');
     Route::get('keuangan/dashboard-stats', [\App\Http\Controllers\Api\KeuanganController::class, 'dashboardStats'])->name('api.keuangan.dashboardStats');
 });
 
@@ -168,7 +183,7 @@ Route::group(['as' => 'cms.'], function () {
     Route::get('/kontak', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'kontak'])->name('kontak');
     Route::get('/galeri', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery');
     // Alias for English slug
-    Route::get('/gallery', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery');
+    Route::get('/gallery', [\App\Http\Controllers\Web\Cms\WelcomeController::class, 'gallery'])->name('gallery.en');
 
     // TODO: Add more routes for contact, etc.
 });

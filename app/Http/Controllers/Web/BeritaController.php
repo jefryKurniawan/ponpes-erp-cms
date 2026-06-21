@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BeritaController extends Controller
@@ -46,7 +47,9 @@ class BeritaController extends Controller
 
             $categories = Category::orderBy('name')->get();
 
-            return view('admin.berita.index', compact('posts', 'categories', $request->only(['category_id', 'status'])));
+            $category_id = $request->input('category_id');
+            $status = $request->input('status');
+            return view('admin.berita.index', compact('posts', 'categories', 'category_id', 'status'));
         }
         abort(403);
     }
@@ -84,7 +87,24 @@ class BeritaController extends Controller
             $validated['slug'] = Str::slug($validated['judul']);
         }
 
-        $post = Post::create($validated);
+        // Prepare data for Post model
+        $data = [
+            'title' => $validated['judul'],
+            'slug' => $validated['slug'],
+            'content' => $validated['isi'],
+            'status' => $validated['status'],
+            'published_at' => $validated['published_at'],
+            'category_id' => $validated['category_id'],
+        ];
+
+        // Handle featured image upload
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $path = $file->store('posts', 'public');
+            $data['featured_image'] = basename($path);
+        }
+
+        $post = Post::create($data);
 
         return redirect()->route('admin.berita.index')
                         ->with('success', 'Berita berhasil ditambahkan.');
@@ -93,11 +113,13 @@ class BeritaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
+        $post = Post::findOrFail($id);
+
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
             return view('admin.berita.show', compact('post'));
         }
@@ -107,11 +129,13 @@ class BeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
+        $post = Post::findOrFail($id);
+
         if (Gate::allows('admin') || Gate::allows('bendahara')) {
             $categories = Category::orderBy('name')->get();
             return view('admin.berita.edit', compact('post', 'categories'));
@@ -123,36 +147,60 @@ class BeritaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\PostRequest  $request
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, Post $post)
+    public function update(PostRequest $request, $id)
     {
+        \Log::debug('BeritaController@update called with id: '.$id);
+        $post = Post::findOrFail($id);
+
         if (!(Gate::allows('admin') || Gate::allows('bendahara'))) {
             abort(403);
         }
 
         $validated = $request->validated();
+        \Log::debug('Validated data: '.print_r($validated, true));
 
-        // Update slug if title changed
+        // Prepare data for Post model
+        $data = [
+            'title' => $validated['judul'],
+            'slug' => $validated['slug'],
+            'content' => $validated['isi'],
+            'status' => $validated['status'],
+            'published_at' => $validated['published_at'],
+            'category_id' => $validated['category_id'],
+        ];
+
+        // Update slug if title changed (regenerate slug from title)
         if (!empty($validated['judul']) && ($post->judul != $validated['judul'] || empty($post->slug))) {
-            $validated['slug'] = Str::slug($validated['judul']);
+            $data['slug'] = Str::slug($validated['judul']);
         }
 
-        $post->update($validated);
+        // Handle featured image upload
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $path = $file->store('posts', 'public');
+            $data['featured_image'] = basename($path);
+        }
+
+        \Log::debug('Data to update: '.print_r($data, true));
+        $post->update($data);
 
         return redirect()->route('admin.berita.index')
-                        ->with('success', 'Berita berhasil diperbarui.');
+                        ->with('success', 'Berita diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::findOrFail($id);
+
         if (!(Gate::allows('admin') || Gate::allows('bendahara'))) {
             abort(403);
         }

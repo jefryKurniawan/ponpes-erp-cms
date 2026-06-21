@@ -8,64 +8,64 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>
-            <li class="{{ (request()->routeIs('home*')) ? 'active' : '' }}">
-                <a href="{{ route('home') }}" class="nav-link">
-                    <i class="fas fa-home"></i><span>Home</span>
+            <li class="{{ (request()->routeIs('home*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('home') }}" class="nav-link {{ (request()->routeIs('home*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-home {{ (request()->routeIs('home*')) ? 'active-sidebar-icon' : '' }}"></i><span>Home</span>
                 </a>
             </li>
-            <li class="{{ (request()->routeIs('santri*')) ? 'active' : '' }}">
-                <a href="{{ route('santri.index') }}" class="nav-link">
-                    <i class="fas fa-users"></i><span>Data Santri</span>
+            <li class="{{ (request()->routeIs('santri*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('santri.index') }}" class="nav-link {{ (request()->routeIs('santri*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-users {{ (request()->routeIs('santri*')) ? 'active-sidebar-icon' : '' }}"></i><span>Data Santri</span>
                 </a>
             </li>
             <li class="menu-header">User</li>
-            <li class="{{ (request()->routeIs('pengguna*')) ? 'active' : '' }}">
-                <a href="{{ route('pengguna.index') }}" class="nav-link">
-                    <i class="fas fa-user-cog"></i><span>Data Pengguna</span>
+            <li class="{{ (request()->routeIs('pengguna*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('pengguna.index') }}" class="nav-link {{ (request()->routeIs('pengguna*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-user-cog {{ (request()->routeIs('pengguna*')) ? 'active-sidebar-icon' : '' }}"></i><span>Data Pengguna</span>
                 </a>
             </li>
             <li class="menu-header">Keuangan</li>
-            <li class="{{ (request()->routeIs('biaya*')) ? 'active' : '' }}">
-                <a href="{{ route('biaya.index') }}" class="nav-link">
-                    <i class="far fa-file-alt"></i><span>Biaya Pembayaran</span>
+            <li class="{{ (request()->routeIs('biaya*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('biaya.index') }}" class="nav-link {{ (request()->routeIs('biaya*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="far fa-file-alt {{ (request()->routeIs('biaya*')) ? 'active-sidebar-icon' : '' }}"></i><span>Biaya Pembayaran</span>
                 </a>
             </li>
-            <li class="{{ (request()->routeIs('keuangan*')) ? 'active' : '' }}">
-                <a href="{{ route('keuangan.index') }}" class="nav-link">
-                    <i class="fas fa-wallet"></i><span>Manajemen Keuangan</span>
+            <li class="{{ (request()->routeIs('keuangan*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('keuangan.index') }}" class="nav-link {{ (request()->routeIs('keuangan*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-wallet {{ (request()->routeIs('keuangan*')) ? 'active-sidebar-icon' : '' }}"></i><span>Manajemen Keuangan</span>
                 </a>
             </li>
-            <li class="dropdown {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-invoice"></i> <span>Pembayaran</span></a>
+            <li class="dropdown {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active-sidebar' : '' }}">
+                <a href="#" class="nav-link has-dropdown {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active-sidebar-link' : '' }}" data-toggle="dropdown"><i class="fas fa-file-invoice {{ (request()->routeIs('syahriah*') || request()->routeIs('registration*')) ? 'active-sidebar-icon' : '' }}"></i> <span>Pembayaran</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ (request()->routeIs('registration*')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('registration.index') }}">Pendaftaran Baru</a>
+                    <li class="{{ (request()->routeIs('registration*')) ? 'active-sidebar' : '' }}">
+                        <a class="nav-link {{ (request()->routeIs('registration*')) ? 'active-sidebar-link' : '' }}" href="{{ route('registration.index') }}">Pendaftaran Baru</a>
                     </li>
-                    <li class="{{ (request()->routeIs('syahriah*')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('syahriah.index') }}">Syahriah (SPP)</a>
+                    <li class="{{ (request()->routeIs('syahriah*')) ? 'active-sidebar' : '' }}">
+                        <a class="nav-link {{ (request()->routeIs('syahriah*')) ? 'active-sidebar-link' : '' }}" href="{{ route('syahriah.index') }}">Syahriah (SPP)</a>
                     </li>
                 </ul>
             </li>
-            <li class="{{ (request()->routeIs('buku-kas*')) ? 'active' : '' }}">
-                <a href="{{ route('buku-kas.index') }}" class="nav-link">
-                    <i class="fas fa-book-open"></i><span>Buku Kas</span>
+            <li class="{{ (request()->routeIs('buku-kas*')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('buku-kas.index') }}" class="nav-link {{ (request()->routeIs('buku-kas*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-book-open {{ (request()->routeIs('buku-kas*')) ? 'active-sidebar-icon' : '' }}"></i><span>Buku Kas</span>
                 </a>
             </li>
             <li class="menu-header">Administrasi</li>
-            <li class="{{ (request()->routeIs('in-mail*')) ? 'active' : '' }}">
-                <a href="/surat-masuk" class="nav-link">
-                    <i class="fas fa-envelope"></i><span>Surat Masuk</span>
+            <li class="{{ (request()->routeIs('in-mail*')) ? 'active-sidebar' : '' }}">
+                <a href="/surat-masuk" class="nav-link {{ (request()->routeIs('in-mail*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-envelope {{ (request()->routeIs('in-mail*')) ? 'active-sidebar-icon' : '' }}"></i><span>Surat Masuk</span>
                 </a>
             </li>
-            <li class="{{ (request()->routeIs('out-mail*')) ? 'active' : '' }}">
-                <a href="/surat-keluar" class="nav-link">
-                    <i class="fas fa-envelope-open-text"></i><span>Surat Keluar</span>
+            <li class="{{ (request()->routeIs('out-mail*')) ? 'active-sidebar' : '' }}">
+                <a href="/surat-keluar" class="nav-link {{ (request()->routeIs('out-mail*')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-envelope-open-text {{ (request()->routeIs('out-mail*')) ? 'active-sidebar-icon' : '' }}"></i><span>Surat Keluar</span>
                 </a>
             </li>
             <li class="menu-header">Logs</li>
-            <li class="{{ (request()->routeIs('logs.index')) ? 'active' : '' }}">
-                <a href="{{ route('logs.index') }}" class="nav-link">
-                    <i class="fas fa-history"></i><span>Log Aktivitas</span>
+            <li class="{{ (request()->routeIs('logs.index')) ? 'active-sidebar' : '' }}">
+                <a href="{{ route('logs.index') }}" class="nav-link {{ (request()->routeIs('logs.index')) ? 'active-sidebar-link' : '' }}">
+                    <i class="fas fa-history {{ (request()->routeIs('logs.index')) ? 'active-sidebar-icon' : '' }}"></i><span>Log Aktivitas</span>
                 </a>
             </li>
         </ul>

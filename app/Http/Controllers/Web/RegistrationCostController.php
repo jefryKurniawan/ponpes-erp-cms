@@ -41,7 +41,8 @@ class RegistrationCostController extends Controller
                     ->latest()
                     ->paginate(10);
 
-        return view('registration.index', compact('data'));
+                $now = date('Y');
+        return view('registration.index', compact('data', 'now'));
     }
 
     /**

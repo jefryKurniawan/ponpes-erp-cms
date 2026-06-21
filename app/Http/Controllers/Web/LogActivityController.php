@@ -24,10 +24,10 @@ class LogActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $data = LogActivity::with('users')->latest()->paginate(10);
+        $data = LogActivity::with('users.santris')->latest()->paginate(10);
         $keyword = $request->keyword;
         if ($keyword)
-            $data = LogActivity::with('users')
+            $data = LogActivity::with('users.santris')
                 ->where('subject', 'LIKE', "%$keyword%")
                 ->orWhere('url', 'LIKE', "%$keyword%")
                 ->orWhereHas('users', function ($query) use ($keyword) {

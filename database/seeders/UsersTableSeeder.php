@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\Santri;
 
 class UsersTableSeeder extends Seeder
 {
@@ -20,6 +21,8 @@ class UsersTableSeeder extends Seeder
         $adminRole = DB::table('roles')->where('name', 'Administrator')->first();
         $pengurusRole = DB::table('roles')->where('name', 'Pengurus')->first();
         $santriRole = DB::table('roles')->where('name', 'Santri')->first();
+        $santri = Santri::factory()->create();
+        $santriId = $santri->id;
 
         if (!$adminRole || !$pengurusRole || !$santriRole) {
             $this->command->error('Roles not found. Please run RolesTableSeeder first.');
@@ -46,7 +49,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'santri@ponpes.com',
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'role_id'  => $santriRole->id,
-                'santri_id' => 'fa201ed9-6016-4d90-b3aa-f4858c5160d8'
+                'santri_id' => $santriId ?? null
             ]
         ];
 
