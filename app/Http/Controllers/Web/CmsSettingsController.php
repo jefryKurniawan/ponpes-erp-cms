@@ -136,4 +136,36 @@ class CmsSettingsController extends Controller
         return redirect()->route('admin.settings.index')
                         ->with('success', 'Pengaturan CMS berhasil dihapus.');
     }
+
+    /**
+     * Upload favicon.
+     */
+    public function uploadFavicon(Request $request)
+    {
+        if (!(Gate::allows('admin') || Gate::allows('bendahara'))) {
+            abort(403);
+        }
+
+        $request->validate([
+            'favicon' => 'required|image|mimes:ico,png|max:512',
+        ]);
+
+        $filename = 'favicon_' . time() . '.' . $request->favicon->extension();
+        $path = $request->file('favicon')->storeAs('assets/img', $filename, 'public');
+
+        // Hapus favicon lama jika ada
+        $oldFavicon = Setting::where('key', 'site_favicon')->first();
+        if ($oldFavicon) {
+            $oldPath = public_path(str_replace(asset('/'), '', $oldFavicon->value));
+            if (file_exists($oldPath)) {
+                @unlink($oldPath);
+            }
+        }
+
+        $faviconUrl = asset('storage/' . $path);
+        Setting::updateOrCreate(['key' => 'site_favicon'], ['value' => $faviconUrl, 'type' => 'branding']);
+
+        return redirect()->route('admin.settings.index')
+                        ->with('success', 'Favicon berhasil diunggah.');
+    }
 }

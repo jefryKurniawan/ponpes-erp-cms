@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\CashBookController;
 use App\Http\Controllers\Web\InMailController;
 use App\Http\Controllers\Web\OutMailController;
 use App\Http\Controllers\Web\SantriController;
+use App\Http\Controllers\Web\AbsensiController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CashBookController as ApiCashBookController;
 use App\Http\Controllers\Api\PasswordController;
@@ -85,6 +86,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('admin/berita', \App\Http\Controllers\Web\BeritaController::class)->names('admin.berita');
     Route::resource('admin/galeri', \App\Http\Controllers\Web\GaleriController::class)->names('admin.galeri');
     Route::resource('admin/settings', \App\Http\Controllers\Web\CmsSettingsController::class)->names('admin.settings');
+
+    // Absensi
+    Route::resource('absensi', AbsensiController::class)->names('absensi');
+    Route::post('absensi/bulk-update', [AbsensiController::class, 'bulkUpdate'])->name('absensi.bulk-update');
+    Route::put('admin/settings/upload-favicon', [App\Http\Controllers\Web\CmsSettingsController::class, 'uploadFavicon'])->name('admin.settings.uploadFavicon');
 
     // Keuangan
     Route::resource('keuangan', \App\Http\Controllers\Web\KeuanganController::class)->except(['show']);

@@ -1,54 +1,20 @@
-@extends('layouts.admin-simple')
+@extends('layouts.admin')
 
 @section('title', 'Pengaturan Sistem')
 
 @section('content')
-<!-- Top Navigation Bar -->
-<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-secondary/10 shadow-sm h-20 px-gutter">
-<div class="max-w-7xl mx-auto flex justify-between items-center h-full">
-<h1 class="font-headline-md text-headline-md text-primary">Al-Hikmah Pesantren</h1>
-<nav class="hidden md:flex gap-md items-center">
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Tentang Kami</a>
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Program</a>
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Pendaftaran</a>
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Galeri</a>
-<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Kontak</a>
-<button class="bg-primary text-on-primary px-lg py-base rounded-lg font-label-md hover:scale-95 transition-transform">Portal Santri</button>
-</nav>
-</div>
-</header>
-<div class="pt-20 flex min-h-screen">
-<!-- Sidebar Shell (Mocked as per shared logic) -->
-<aside class="hidden lg:flex flex-col w-64 bg-surface-container-low border-r border-divider-clay p-md gap-sm sticky top-20 h-[calc(100vh-80px)]">
-<div class="flex items-center gap-xs mb-lg">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">settings_applications</span>
-<span class="font-headline-sm text-primary">Admin Panel</span>
-</div>
-<nav class="space-y-xs">
-<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-primary/5 text-on-surface-variant transition-all" href="{{ route('home') }}">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-label-md">Dashboard</span>
-</a>
-<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-primary/5 text-on-surface-variant transition-all" href="{{ route('santri.index') }}">
-<span class="material-symbols-outlined">school</span>
-<span class="font-label-md">Data Santri</span>
-</a>
-<a class="flex items-center gap-sm p-sm rounded-lg bg-primary-container text-on-primary-container font-bold shadow-sm" href="{{ route('admin.settings.index') }}">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
-<span class="font-label-md">Pengaturan</span>
-</a>
-<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-primary/5 text-on-surface-variant transition-all" href="{{ route('biaya.index') }}">
-<span class="material-symbols-outlined">payments</span>
-<span class="font-label-md">Administrasi</span>
-</a>
-<a class="flex items-center gap-sm p-sm rounded-lg hover:bg-primary/5 text-on-surface-variant transition-all" href="{{ route('pengguna.index') }}">
-<span class="material-symbols-outlined">logout</span>
-<span class="font-label-md">Keluar</span>
-</a>
-</nav>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 p-gutter lg:p-xl relative overflow-x-hidden custom-scrollbar">
+@php $flash = session('success') ?? session('error'); @endphp
+@if ($flash)
+    <div x-data="{show:true}" x-show="show" x-init="setTimeout(() => show = false, 4000)"
+         class="fixed top-4 right-4 bg-{{ session('error') ? 'red' : 'green' }}-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="{{ session('error') ? 'M6 18L18 6M6 6l12 12' : 'M5 13l4 4L19 7' }}"/>
+        </svg>
+        <span>{{ $flash }}</span>
+    </div>
+@endif
+<main class="p-gutter lg:p-xl relative overflow-x-hidden custom-scrollbar">
 <!-- Subtle Batik Texture Background -->
 <div class="absolute inset-0 batik-overlay bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
 <div class="max-w-5xl mx-auto space-y-lg relative z-10">
@@ -59,7 +25,7 @@
 <!-- Tabbed Interface -->
 <div class="cms-card overflow-hidden">
 <div class="flex border-b border-divider-clay bg-surface-container-lowest overflow-x-auto no-scrollbar">
-<button class="px-lg py-md font-label-md tab-active whitespace-nowrap transition-all duration-200" id="tab-btn-branding" onclick="switchTab('branding')">Branding</button>
+<button class="px-lg py-md font-label-md tab-active whitespace-nowrap transition-all duration-200 border-b-2 border-primary" id="tab-btn-branding" onclick="switchTab('branding')">Branding</button>
 <button class="px-lg py-md font-label-md tab-inactive whitespace-nowrap transition-all duration-200" id="tab-btn-theme" onclick="switchTab('theme')">Tema Visual</button>
 <button class="px-lg py-md font-label-md tab-inactive whitespace-nowrap transition-all duration-200" id="tab-btn-landing" onclick="switchTab('landing')">Halaman Depan</button>
 <button class="px-lg py-md font-label-md tab-inactive whitespace-nowrap transition-all duration-200" id="tab-btn-contact" onclick="switchTab('contact')">Kontak & Sosial</button>
@@ -95,7 +61,31 @@
 <div class="w-10 h-10 bg-surface-container-high rounded flex items-center justify-center border border-outline-variant">
 <span class="material-symbols-outlined text-primary-fixed-dim">image</span>
 </div>
-<button class="text-primary font-label-sm hover:underline">Unggah Baru</button>
+<button id="btn-upload-favicon" type="button" class="text-primary font-label-sm hover:underline">Unggah Baru</button>
+
+<!-- Upload Modal -->
+<div id="modal-upload-favicon" class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="bg-surface rounded-xl p-lg max-w-md w-full mx-4 shadow-2xl">
+        <h4 class="font-headline-sm text-on-surface mb-sm">Unggah Favicon</h4>
+        <p class="font-body-sm text-on-surface-variant mb-md">Pilih file favicon (.ico, .png) dengan ukuran 16x16 atau 32x32 piksel.</p>
+
+        <form action="{{ route('admin.settings.uploadFavicon') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="mb-md">
+                <label class="block w-full h-32 border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-surface-container-high transition-colors">
+                    <input type="file" name="favicon" accept=".ico,.png" class="hidden" id="favicon-input" required/>
+                    <span class="material-symbols-outlined text-outline mb-xs">upload_file</span>
+                    <span class="font-label-sm text-on-surface-variant" id="favicon-filename">Klik untuk pilih file</span>
+                </label>
+            </div>
+            <div class="flex justify-end gap-sm">
+                <button type="button" id="btn-batal" class="px-md py-xs rounded-lg font-label-sm bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">Batal</button>
+                <button type="submit" class="px-md py-xs rounded-lg font-label-sm bg-primary text-on-primary hover:opacity-90 transition-opacity">Unggah</button>
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 </div>
 </div>
@@ -223,7 +213,6 @@
 </div>
 </div>
 </main>
-</div>
 <!-- Floating Action Button -->
 <div class="fixed bottom-lg right-lg z-[60]">
 <button class="bg-primary text-on-primary shadow-lg shadow-primary/30 px-lg py-md rounded-full flex items-center gap-sm hover:scale-105 active:scale-95 transition-all group">
@@ -232,29 +221,6 @@
 </button>
 </div>
 <!-- Footer -->
-<footer class="bg-surface-container-low border-t border-divider-clay py-12 px-gutter mt-auto relative z-10">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-lg">
-<div class="col-span-1 md:col-span-2">
-<span class="font-headline-md text-headline-md text-primary mb-4 block">Al-Hikmah Pesantren</span>
-<p class="font-body-sm text_on-surface-variant max-w-sm">© 2024 Al-Hikmah Digital Pesantren. Terakreditasi Nasional. Berdedikasi mencetak insan kamil di era digital.</p>
-</div>
-<div>
-<h5 class="font-label-md text-secondary mb-md">Pendidikan</h5>
-<ul class="space-y-xs font-body-sm text_on-surface-variant">
-<li><a class="hover:text-secondary underline transition-all" href="#">Kurikulum Kitab Kuning</a></li>
-<li><a class="hover:text-secondary underline transition-all" href="#">Tahfidz Al-Qur'an</a></li>
-<li><a class="hover:text-secondary underline transition-all" href="#">Ekstrakurikuler</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-label-md text-secondary mb-md">Layanan</h5>
-<ul class="space-y-xs font-body-sm text_on-surface-variant">
-<li><a class="hover:text-secondary underline transition-all" href="#">Biaya Pendidikan</a></li>
-<li><a class="hover:text-secondary underline transition-all" href="#">Kebijakan Privasi</a></li>
-</ul>
-</div>
-</div>
-</footer>
 <script>
         function switchTab(tabId) {
             // Hide all contents
@@ -267,13 +233,13 @@
             // Update button styles
             const buttons = document.querySelectorAll('[id^="tab-btn-"]');
             buttons.forEach(btn => {
-                btn.classList.remove('tab-active');
+                btn.classList.remove('tab-active','tab-inactive','border-b-2','border-primary');
                 btn.classList.add('tab-inactive');
             });
 
             const activeBtn = document.getElementById('tab-btn-' + tabId);
             activeBtn.classList.remove('tab-inactive');
-            activeBtn.classList.add('tab-active');
+            activeBtn.classList.add('tab-active','border-b-2','border-primary');
         }
 
         // Add some subtle hover interaction to buttons
@@ -283,6 +249,28 @@
             });
             btn.addEventListener('mouseleave', () => {
                 btn.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Modal upload favicon dengan jQuery
+        $(document).ready(function() {
+            $('#btn-upload-favicon').on('click', function() {
+                $('#modal-upload-favicon').removeClass('hidden').addClass('flex');
+            });
+
+            $('#btn-batal').on('click', function() {
+                $('#modal-upload-favicon').removeClass('flex').addClass('hidden');
+            });
+
+            $('#modal-upload-favicon').on('click', function(e) {
+                if ($(e.target).is('#modal-upload-favicon')) {
+                    $(this).removeClass('flex').addClass('hidden');
+                }
+            });
+
+            $('#favicon-input').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#favicon-filename').text(fileName || 'Klik untuk pilih file');
             });
         });
     </script>

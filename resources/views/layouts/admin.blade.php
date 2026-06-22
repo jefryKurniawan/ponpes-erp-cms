@@ -6,10 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Al-Hikmah Pesantren | Admin Dashboard')</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@100..900&family=Lora:wght@100..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <link rel="icon" href="{{ asset('assets/img/favicon_for_a_traditional_indonesian_pesantren_brand_named_heritage_organic.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/img/ponpes.ico') }}" type="image/x-icon">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -98,8 +97,6 @@
             }
         }
     </script>
-    <!-- Alpine.js for interactive modals -->
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -186,6 +183,10 @@
                 <a class="flex items-center px-4 py-3 rounded-lg transition-all {{ request()->routeIs('santri.*') ? 'cms-sidebar-active' : 'text-on-surface-variant hover:bg-primary-container/10 hover:text-primary' }}" href="{{ route('santri.index') }}">
                     <span class="material-symbols-outlined mr-3 {{ request()->routeIs('santri.*') ? '' : 'text-primary' }}">school</span>
                     <span class="font-label-md">Data Santri</span>
+                </a>
+                <a class="flex items-center px-4 py-3 rounded-lg transition-all {{ request()->routeIs('absensi.*') ? 'cms-sidebar-active' : 'text-on-surface-variant hover:bg-primary-container/10 hover:text-primary' }}" href="{{ route('absensi.index') }}">
+                    <span class="material-symbols-outlined mr-3 {{ request()->routeIs('absensi.*') ? '' : 'text-primary' }}">assignment_turned_in</span>
+                    <span class="font-label-md">Absensi</span>
                 </a>
             </div>
 
@@ -333,9 +334,7 @@
         </header>
 
         <!-- Dashboard Content -->
-        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
             @yield('content')
-        </div>
 
         <!-- Modal Container -->
         @stack('modal')
@@ -346,6 +345,7 @@
 @stack('scripts')
 
 <!-- Scripts -->
+<script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @yield('scripts')
 <script>

@@ -52,12 +52,14 @@ class HomeController extends Controller
         $galleryCount = Schema::hasTable('galleries') ? Gallery::count() : 0;
         $totalContent = $postsCount + $galleryCount + $in_mail + $out_mail;
 
-        // Stock alerts (inventaris)
+        // Stock alerts (inventaris) — only count real issues
         $stockAlerts = 0;
         if (Schema::hasTable('inventaris_barangs')) {
             $stockAlerts = DB::table('inventaris_barangs')
-                ->where('status', '!=', 'baik')
-                ->orWhere('jumlah', '<', 10)
+                ->where(function ($q) {
+                    $q->where('status', '!=', 'baik')
+                      ->orWhere('jumlah', '<', 10);
+                })
                 ->count();
         }
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\KeuanganCategorySeeder;
+use Database\Seeders\CashBookSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +23,10 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             SantrisTableSeeder::class,
             CostsTableSeeder::class,
+
+            // Keuangan tables
+            KeuanganCategorySeeder::class,
+            CashBookSeeder::class,
 
             // CMS tables
             CategoriesTableSeeder::class,
